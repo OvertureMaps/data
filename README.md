@@ -3,7 +3,7 @@
 ## Submissions
 
 **Steps**
-1. Click [HERE](https://github.com/OvertureMaps/data/discussions) to submit your feedback
+1. Click [HERE](https://github.com/OvertureMaps/data/discussions/new/choose) to submit your feedback
 2. Select the layer discussion category 
    - Administration Boundaries
    - Transportation
