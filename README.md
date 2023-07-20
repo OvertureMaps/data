@@ -4,7 +4,8 @@
 
 **Steps**
 1. Click [HERE](https://github.com/OvertureMaps/data/discussions/new/choose) to submit your feedback
-2. Select the layer discussion category 
+2. Click [New Discussions]
+3. Select the layer discussion category 
    - Administration Boundaries
    - Transportation
    - Places
