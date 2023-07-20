@@ -1,6 +1,6 @@
 # Data Release Feedback
 
-## Feedback submissions
+## Submissions
 
 **Steps**
 1. Click [HERE](https://github.com/OvertureMaps/data/discussions) to submit your feedback
@@ -10,7 +10,7 @@
    - Places
    - Buildings
   
-## Discussion Submission
+## Discussion 
 1. Add a title
 2. Outline your feedback with as much detail as possible
 3. Click [Start Discussion]
