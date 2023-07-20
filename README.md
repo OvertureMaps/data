@@ -10,7 +10,7 @@
    - Places
    - Buildings
   
-## Discussion 
+**Discussion outline** 
 1. Add a title
 2. Outline your feedback with as much detail as possible
 3. Click [Start Discussion]
