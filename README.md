@@ -12,7 +12,11 @@ Overture Maps data is available in cloud-native [Parquet](https://parquet.apache
 |Places| s3://<bucket> / release / places /azure... |
 |Transportation| s3://<bucket> / release / transportation /azure... |
 
-### Accessing Data
+### Accessing Overture Maps Data
+#### Using Amazon Athena
+1. You will need an AWS Account
+2. Run the following queries to setup the tables (link)
+3. 
 
 
 ## Data Release Feedback
