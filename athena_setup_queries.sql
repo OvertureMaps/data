@@ -1,0 +1,1 @@
+-- Setting up the Overture Maps Data Tables on AWS Athena
