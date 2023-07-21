@@ -1,12 +1,19 @@
 # Welcome to the Overture Maps Data Repo
 
-## Download Overture Maps data
-
-Add links to  download data. This section may not be needed if covered in "How to Access"
-
 ## How to Access Overture Maps Data
 
-To be added...
+Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format. There is no single Overture "planet" file to be downloaded, instead, we have organized the files by theme and type at the following locations:
+
+### Data Location
+|Theme| Amazon S3 | Microsoft Azure | 
+|-----|--------|----|
+|Admins| s3://<bucket> / release / admins /| azure... |
+|Buildings| s3://<bucket> / release / buildings /azure... |
+|Places| s3://<bucket> / release / places /azure... |
+|Transportation| s3://<bucket> / release / transportation /azure... |
+
+### Accessing Data
+
 
 ## Data Release Feedback
 We are very interested in feedback on the Overture data. Please use the Discussion section of this repo to comment. Tagging it with the relevant theme name (Places, Transportation) will help direct your ideas. 
