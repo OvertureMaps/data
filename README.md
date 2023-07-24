@@ -2,7 +2,7 @@
 
 ## How to Access Overture Maps Data
 
-Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format. There is no single Overture "planet" file to be downloaded, instead, we have organized the files by theme and type at the following locations:
+Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format. There is no single Overture "entire planet" file to be downloaded, instead, we have organized the data by theme and type at the following locations:
 
 ### Data Location
 |Theme| Amazon S3 | Microsoft Azure |
@@ -18,6 +18,22 @@ These parquet files can be accessed either in the cloud or downloaded locally. W
 ### 1. Amazon Athena (SQL)
 1. You will need an AWS Account
 2. Run the following queries to setup the tables (link)
+3. Be sure to load the partitions by running `MSCK REPAIR <tablename>;` or choosing "Load Partitions from the table options menu.
+
+Example query to download a CSV of places in Seattle:
+
+```sql
+SELECT
+   CAST(names) AS JSON,
+   wkt AS wkt_geometry
+FROM
+   places
+WHERE
+   <bbox filter>
+```
+
+This CSV includes
+
 
 ### 2. Microsoft Synapse (SQL)
 You can also explore Overture data using Azure Synapse Serverless SQL Pool.
@@ -80,6 +96,11 @@ Check out [example notebooks here]() for instructions on how to use DuckDB insid
 ### 4. Download the Parquet files.
 You can download the parquet files from both Azure blob storage and Amazon S3 at the locations in the table at the top of the page.
 
+After installing the [Amazon CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), you can copy the Overture files from S3 with the following command:
+```bash
+aws s3 cp --recursive s3://overturemaps-us-west-2-parquet/release/blahblah/ [LOCAL_PATH]
+```
+
 For more information on Azure Storage Explorer or `azcopy`, see [Copy or move data to Azure Storage by using AzCopy](https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&bc=%2Fazure%2Fstorage%2Fblobs%2Fbreadcrumb%2Ftoc.json#download-azcopy) or
 [Azure Storage Explorer](https://azure.microsoft.com/en-us/products/storage/storage-explorer/).
 
@@ -89,10 +110,7 @@ Example command to download a directory from Azure Blob storage:
 azcopy copy "https://overturemapswestus2.dfs.core.windows.net/release/<<directory path>>" "<<local directory path>>"  --recursive```
 ```
 
-Example command to download a directory from Amazon s3
-```bash
-aws s3 cp --recursive s3://overturemaps-us-west-2-parquet/release/blahblah/ [LOCAL_PATH]
-```
+
 
 
 

@@ -1,5 +1,6 @@
 -- Setting up the Overture Maps Data Tables on AWS Athena
 
+-- Admins theme
 
 -- Buildings theme
 CREATE EXTERNAL TABLE `buildings`(
@@ -25,3 +26,9 @@ TBLPROPERTIES (
   'has_encrypted_data'='false',
   'parquet.compression'='zstd'
 )
+
+-- Places theme
+
+
+
+-- Transportation theme
