@@ -1,3 +1,6 @@
+-- To run this query:
+-- Start duckdb and then run `.read buildings.sql`
+
 LOAD httpfs;
 LOAD spatial;
 
