@@ -36,9 +36,9 @@ This CSV includes
 
 
 ### 2. Microsoft Synapse (SQL)
-You can also explore Overture data using Azure Synapse Serverless SQL Pool.
+You can explore Overture data using Azure Synapse Serverless SQL Pool.
 
-First, you will need to create a [Synapse workspace](https://learn.microsoft.com/en-us/azure/synapse-analytics/get-started-create-workspace).
+First, create a [Synapse workspace](https://learn.microsoft.com/en-us/azure/synapse-analytics/get-started-create-workspace).
 
 Here is an example query to read places data in Seattle bounding box:
 
