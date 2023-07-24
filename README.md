@@ -2,7 +2,7 @@
 
 ## How to Access Overture Maps Data
 
-Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format. There is no single Overture "entire planet" file to be downloaded, instead, we have organized the data by theme and type at the following locations:
+Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format. There is no single Overture "entire planet" file to be downloaded. Instead, we have organized the data by theme and type at the following locations:
 
 ### Data Location
 |Theme| Amazon S3 | Microsoft Azure |
