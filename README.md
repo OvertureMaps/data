@@ -13,12 +13,49 @@ There is no single Overture "entire planet" file to be downloaded. Instead, we
 have organized the data for the `Overture 2023-07-26-alpha.0` release by theme and type at the following locations:
 
 ### Data Location
-| Theme          | Amazon S3                                                                     | Microsoft Azure                                                        |
-|----------------|-------------------------------------------------------------------------------|------------------------------------------------------------------------|
-| Admins         | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins`         | `overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/` |
-| Buildings      | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings`      | `overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/` |
-| Places         | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places`         | `overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/` |
-| Transportation | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=transportation` | `overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/` |
+
+<table>
+  <tr>
+    <th>Theme</th>
+    <th>Location</th>
+  </tr>
+  <tr>
+    <th>Admins</th>
+    <td>
+      <ul>
+        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins</code></li>
+        <li>Microsoft Azure: <code>overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/</code></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <th>Buildings</th>
+    <td>
+      <ul>
+        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings</code></li>
+        <li>Microsoft Azure: <code>overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/</code></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <th>Places</th>
+    <td>
+      <ul>
+        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places</code></li>
+        <li>Microsoft Azure: <code>overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/</code></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <th>Transportation</th>
+    <td>
+      <ul>
+        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=transportation</code></li>
+        <li>Microsoft Azure: <code>overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/</code></li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 #### Parquet Schema
 The Parquet files match the [Overture Data Schema](https://docs.overturemaps.org/)
@@ -77,14 +114,15 @@ SELECT TOP 10 *
        )
   WITH
        (
-       names VARCHAR(MAX),
-       categories VARCHAR(MAX),
-       websites VARCHAR(MAX),
-       phones VARCHAR(MAX),
-       bbox VARCHAR(200),
-       geometry VARCHAR(MAX)
+           names VARCHAR(MAX),
+           categories VARCHAR(MAX),
+           websites VARCHAR(MAX),
+           phones VARCHAR(MAX),
+           bbox VARCHAR(200),
+           geometry VARCHAR(MAX)
        )
-    AS [result]
+    AS
+       [result]
  WHERE
        TRY_CONVERT(FLOAT, JSON_VALUE(bbox, '$.minx')) > -122.4447744
    AND TRY_CONVERT(FLOAT, JSON_VALUE(bbox, '$.maxx')) < -122.2477071
@@ -105,16 +143,16 @@ for all `adminLevel=2` features, you could run:
 ```sql
 COPY (
     SELECT
-        type,
-        subType,
-        localityType,
-        adminLevel,
-        isoCountryCodeAlpha2,
-        JSON(names) as names,
-        JSON(sources) as sources,
-        ST_GeomFromText(geometry) as geometry
-    FROM read_parquet('s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins/type=*/*', filename=true, hive_partitioning=1)
-    WHERE adminLevel = 2 and ST_GeometryType(ST_GeomFromText(geometry)) IN ('POLYGON','MULTIPOLYGON')
+           type,
+           subType,
+           localityType,
+           adminLevel,
+           isoCountryCodeAlpha2,
+           JSON(names) as names,
+           JSON(sources) as sources,
+           ST_GeomFromText(geometry) as geometry
+      FROM read_parquet('s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins/type=*/*', filename=true, hive_partitioning=1)
+     WHERE adminLevel = 2 and ST_GeometryType(ST_GeomFromText(geometry)) IN ('POLYGON','MULTIPOLYGON')
 ) TO 'countries.geojson'
 WITH (FORMAT GDAL, DRIVER 'GeoJSON');
 ```
