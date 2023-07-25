@@ -3,20 +3,20 @@
 -- Admins theme
 CREATE EXTERNAL TABLE `admins`(
   `id` string,
-  `updatetime` string,
+  `updateTime` string,
   `version` int,
   `names` map<string,array<map<string,string>>>,
-  `adminlevel` int,
+  `adminLevel` int,
   `maritime` string,
-  `subtype` string,
-  `localitytype` string,
+  `subType` string,
+  `localityType` string,
   `context` string,
-  `isocountrycodealpha2` string,
-  `isosubcountrycode` string,
-  `defaultlanugage` string,
-  `drivingside` string,
+  `isoCountryCodeAlpha2` string,
+  `isoSubCountryCode` string,
+  `defaultLanugage` string,
+  `drivingSide` string,
   `sources` array<map<string,string>>,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>,
+  `bbox` struct<minX:double,maxX:double,minY:double,maxY:double>,
   `geometry` binary)
 PARTITIONED BY (
   `type` string)
@@ -28,15 +28,15 @@ LOCATION
 -- Buildings theme
 CREATE EXTERNAL TABLE `buildings`(
   `id` string,
-  `updatetime` string,
+  `updateTime` string,
   `version` int,
   `names` map<string,array<map<string,string>>>,
   `level` int,
   `height` double,
-  `numfloors` int,
+  `numFloors` int,
   `class` string,
   `sources` array<map<string,string>>,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>,
+  `bbox` struct<minX:double,maxX:double,minY:double,maxY:double>,
   `geometry` binary)
 PARTITIONED BY (
   `type` varchar(8))
@@ -48,7 +48,7 @@ LOCATION
 -- Places theme
 CREATE EXTERNAL TABLE `places`(
   `id` string,
-  `updatetime` string,
+  `updateTime` string,
   `version` int,
   `names` map<string,array<map<string,string>>>,
   `categories` struct<main:string,alternate:array<string>>,
@@ -60,7 +60,7 @@ CREATE EXTERNAL TABLE `places`(
   `brand` struct<names:map<string,array<map<string,string>>>,wikidata:string>,
   `addresses` array<map<string,string>>,
   `sources` array<map<string,string>>,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>,
+  `bbox` struct<minX:double,maxX:double,minY:double,maxY:double>,
   `geometry` binary)
 PARTITIONED BY (
   `type` varchar(5))
