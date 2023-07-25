@@ -22,7 +22,7 @@ PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-07-26.0/theme=admins'
+  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins'
 
 
 -- Buildings theme
@@ -42,7 +42,7 @@ PARTITIONED BY (
   `type` varchar(8))
 STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-07-26.0/theme=buildings'
+  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings'
 
 
 -- Places theme
@@ -66,7 +66,7 @@ PARTITIONED BY (
   `type` varchar(5))
 STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-07-26.0/theme=places'
+  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places'
 
 
 -- Transportation theme
