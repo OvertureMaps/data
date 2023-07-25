@@ -15,17 +15,17 @@ have organized the data by theme and type at the following locations:
 ### Data Location
 |Theme| Amazon S3 | Microsoft Azure |
 |-----|--------|----|
-|Admins| s3://overturemaps-us-west-2/release/2023-07-26/theme=admins | overturemapswestus2.dfs.core.windows.net/release/ |
-|Buildings| s3://overturemaps-us-west-2/release/2023-07-26/theme=buildings | overturemapswestus2.dfs.core.windows.net/release/ |
-|Places| s3://overturemaps-us-west-2/release/2023-07-26/theme=places | overturemapswestus2.dfs.core.windows.net/release/ |
-|Transportation| s3://overturemaps-us-west-2/release/2023-07-26/theme=transportation | overturemapswestus2.dfs.core.windows.net/release/ |
+|Admins| s3://overturemaps-us-west-2/release/2023-07-26.0/theme=admins | overturemapswestus2.dfs.core.windows.net/release/ |
+|Buildings| s3://overturemaps-us-west-2/release/2023-07-26.0/theme=buildings | overturemapswestus2.dfs.core.windows.net/release/ |
+|Places| s3://overturemaps-us-west-2/release/2023-07-26.0/theme=places | overturemapswestus2.dfs.core.windows.net/release/ |
+|Transportation| s3://overturemaps-us-west-2/release/2023-07-26.0/theme=transportation | overturemapswestus2.dfs.core.windows.net/release/ |
 
 #### Parquet Schema
 The parquet files match the Overture Data Schema for each theme with the following enhancments:
 
-1. The `geometry` column is encoded as WKB.
+1. The `id` column contains _temporary_ ids that are not yet part of the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/gers/). There is no guarantee of stability or consistenty with the ids in this data release.
 2. The `bbox` column is a `struct` with the following attributes: `minX`, `maxX`, `minY`, `maxY`.
-3. The `id` column contains _temporary_ ids that are not yet part of the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/gers/). There is no guarantee of stability or consistenty with the ids in this data release.
+3. The `geometry` column is encoded as WKB.
 
 ## Accessing Overture Maps Data
 You can access Overture Parquet data files directly from the cloud, or copy them
