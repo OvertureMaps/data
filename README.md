@@ -13,12 +13,12 @@ There is no single Overture "entire planet" file to be downloaded. Instead, we
 have organized the data for the `Overture 2023-07-26-alpha.0` release by theme and type at the following locations:
 
 ### Data Location
-|Theme| Amazon S3 | Microsoft Azure |
-|-----|--------|----|
-|Admins| s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins | overturemapswestus2.dfs.core.windows.net/release/ |
-|Buildings| s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings | overturemapswestus2.dfs.core.windows.net/release/ |
-|Places| s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places | overturemapswestus2.dfs.core.windows.net/release/ |
-|Transportation| s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=transportation | overturemapswestus2.dfs.core.windows.net/release/ |
+| Theme          | Amazon S3                                                                     | Microsoft Azure                                     |
+|----------------|-------------------------------------------------------------------------------|-----------------------------------------------------|
+| Admins         | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins`         | `overturemapswestus2.dfs.core.windows.net/release/` |
+| Buildings      | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings`      | `overturemapswestus2.dfs.core.windows.net/release/` |
+| Places         | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places`         | `overturemapswestus2.dfs.core.windows.net/release/` |
+| Transportation | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=transportation` | `overturemapswestus2.dfs.core.windows.net/release/` |
 
 #### Parquet Schema
 The parquet files match the Overture Data Schema for each theme with the following enhancments:
