@@ -13,18 +13,23 @@ There is no single Overture "entire planet" file to be downloaded. Instead, we
 have organized the data for the `Overture 2023-07-26-alpha.0` release by theme and type at the following locations:
 
 ### Data Location
-| Theme          | Amazon S3                                                                     | Microsoft Azure                                     |
-|----------------|-------------------------------------------------------------------------------|-----------------------------------------------------|
-| Admins         | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins`         | `overturemapswestus2.dfs.core.windows.net/release/` |
-| Buildings      | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings`      | `overturemapswestus2.dfs.core.windows.net/release/` |
-| Places         | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places`         | `overturemapswestus2.dfs.core.windows.net/release/` |
-| Transportation | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=transportation` | `overturemapswestus2.dfs.core.windows.net/release/` |
+| Theme          | Amazon S3                                                                     | Microsoft Azure                                                        |
+|----------------|-------------------------------------------------------------------------------|------------------------------------------------------------------------|
+| Admins         | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins`         | `overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/` |
+| Buildings      | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings`      | `overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/` |
+| Places         | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places`         | `overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/` |
+| Transportation | `s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=transportation` | `overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/` |
 
 #### Parquet Schema
-The parquet files match the Overture Data Schema for each theme with the following enhancments:
+The Parquet files match the [Overture Data Schema](https://docs.overturemaps.org/)
+for each theme with the following enhancements:
 
-1. The `id` column contains _temporary_ ids that are not yet part of the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/gers/). There is no guarantee of stability or consistenty with the ids in this data release.
-2. The `bbox` column is a `struct` with the following attributes: `minX`, `maxX`, `minY`, `maxY`.
+1. The `id` column contains _temporary_ IDs that are not yet part of the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/gers/). 
+   These IDs are not yet stable and are likely to change significantly up
+   to the point that GERS is released.
+2. The `bbox` column is a `struct` with the following attributes:
+   `minX`, `maxX`, `minY`, `maxY`. This column allows you to craft more
+   efficient spatial queries when running SQL against the cloud.
 3. The `geometry` column is encoded as WKB.
 
 ## Accessing Overture Maps Data
@@ -64,75 +69,83 @@ More information on using Athena is available in the [Amazon Athena User Guide](
 Example query to read places in the Seattle:
 
 ```sql
-SELECT TOP 10
-    *
-FROM
-    OPENROWSET(
-        BULK 'https://mdpcosmostoolsgen2.blob.core.windows.net/froms3/m5places/type=place/*',
-        FORMAT = 'PARQUET'
-    )
-    WITH (
-        names VARCHAR(MAX),
-        categories VARCHAR(MAX),
-        websites VARCHAR(MAX),
-        phones VARCHAR(MAX),
-        bbox VARCHAR(200),
-        geometry VARCHAR(MAX)
-    )
-     AS [result]
-     WHERE
-     TRY_CONVERT(FLOAT, JSON_VALUE(bbox, '$.minx')) > -122.4447744 AND TRY_CONVERT(FLOAT, JSON_VALUE(bbox, '$.maxx')) < -122.2477071 AND
-     TRY_CONVERT(FLOAT, JSON_VALUE(bbox, '$.miny')) > 47.5621587 AND TRY_CONVERT(FLOAT, JSON_VALUE(bbox, '$.maxy')) < 47.7120663
+SELECT TOP 10 *
+  FROM
+       OPENROWSET(
+           BULK 'https://mdpcosmostoolsgen2.blob.core.windows.net/froms3/m5places/type=place/*',
+           FORMAT = 'PARQUET'
+       )
+  WITH
+       (
+       names VARCHAR(MAX),
+       categories VARCHAR(MAX),
+       websites VARCHAR(MAX),
+       phones VARCHAR(MAX),
+       bbox VARCHAR(200),
+       geometry VARCHAR(MAX)
+       )
+    AS [result]
+ WHERE
+       TRY_CONVERT(FLOAT, JSON_VALUE(bbox, '$.minx')) > -122.4447744
+   AND TRY_CONVERT(FLOAT, JSON_VALUE(bbox, '$.maxx')) < -122.2477071
+   AND TRY_CONVERT(FLOAT, JSON_VALUE(bbox, '$.miny')) > 47.5621587
+   AND TRY_CONVERT(FLOAT, JSON_VALUE(bbox, '$.maxy')) < 47.7120663
 ```
 
 More information is available at [Query files using a serverless SQL pool - Training | Microsoft Learn](https://learn.microsoft.com/en-us/training/modules/query-data-lake-using-azure-synapse-serverless-sql-pools/3-query-files).
 
 ### 3. DuckDB (SQL)
-[DuckDB](https://duckdb.org/) is a command line database system you can run
-locally which can read Overture's Parquet data files directly from S3 while
-downloading only what is required to execute your query.
+[DuckDB](https://duckdb.org/) is an analytics tool you can install
+locally that can efficiently query remote Parquet files using SQL. It
+will only download the subset of files it needs to fulfil your queries.
 
-If, for example, you wanted to download the administrative boundaries for
-all `adminLevel=2` features, you could run:
+If, for example, you wanted to download the administrative boundaries
+for all `adminLevel=2` features, you could run:
 
 ```sql
 COPY (
     SELECT
         type,
-        subtype,
-        localitytype,
-        adminlevel,
-        isocountrycodealpha2,
+        subType,
+        localityType,
+        adminLevel,
+        isoCountryCodeAlpha2,
         JSON(names) as names,
         JSON(sources) as sources,
         ST_GeomFromText(geometry) as geometry
-    FROM read_parquet('s3://omf-internal-usw2/staging/admins/type=*/*', filename=true, hive_partitioning=1)
-    WHERE adminlevel = 2 and ST_GeometryType(ST_GeomFromText(geometry)) IN ('POLYGON','MULTIPOLYGON')
+    FROM read_parquet('s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins/type=*/*', filename=true, hive_partitioning=1)
+    WHERE adminLevel = 2 and ST_GeometryType(ST_GeomFromText(geometry)) IN ('POLYGON','MULTIPOLYGON')
 ) TO 'countries.geojson'
 WITH (FORMAT GDAL, DRIVER 'GeoJSON');
 ```
+
 This will create a `countries.geojson` file containing 265 country
 polygons and multipolygons.
 
 #### Jupyter Notebooks + DuckDB
+
+**TODO: Link below doesn't exist yet. 👇**
+
 Check out [example notebooks here]() for instructions on how to use DuckDB inside a notebook for a more interactive experience.
 
 
 ### 4. Download the Parquet files.
-You can download the parquet files from both Azure blob storage and Amazon S3 at the locations in the table at the top of the page.
+You can download the Parquet files from either Azure Blob Storage or Amazon S3 at the locations given in the table at the top of the page.
 
-After installing the [Amazon CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), you can copy the Overture files from S3 with the following command:
+After installing the [Amazon CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html),
+you can download the files from S3 using the below command. Set `<DESTINATION>` to a local directory path to
+download the files, or to an `s3://` path you control to copy them into your S3 bucket.
 ```bash
-aws s3 cp --recursive s3://overturemaps-us-west-2-parquet/release/blahblah/ [LOCAL_PATH]
+aws s3 cp --recursive s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/ <DESTINATION>
 ```
 
-For more information on Azure Storage Explorer or `azcopy`, see [Copy or move data to Azure Storage by using AzCopy](https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&bc=%2Fazure%2Fstorage%2Fblobs%2Fbreadcrumb%2Ftoc.json#download-azcopy) or
-[Azure Storage Explorer](https://azure.microsoft.com/en-us/products/storage/storage-explorer/).
-
-Example command to download a directory from Azure Blob storage:
+You can download the files from Azure Blob Storage using 
+[Azure Storage Explorer](https://azure.microsoft.com/en-us/products/storage/storage-explorer/)
+or the [AzCopy](https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&bc=%2Fazure%2Fstorage%2Fblobs%2Fbreadcrumb%2Ftoc.json#download-azcopy)
+command. An example `azcopy` command is given below.
 
 ```bash
-azcopy copy "https://overturemapswestus2.dfs.core.windows.net/release/<<directory path>>" "<<local directory path>>"  --recursive```
+azcopy copy "https://overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/" "<<local directory path>>"  --recursive```
 ```
 
 
