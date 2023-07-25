@@ -1,6 +1,22 @@
--- Setting up the Overture Maps Data Tables on Amazon Athena
+------------------------------------------------------------------------
+-- Set up the Overture Maps data tables in Amazon Athena on AWS
+------------------------------------------------------------------------
+-- The below Athena SQL queries will create tables in your AWS account's
+-- data catalog pointing directly to data hosted on Overture's S3
+-- bucket. You can then query Overture data directly without needing to
+-- copy it.
+--
+-- 💡 TIP: Athena only allows one SQL statement to be run at a time, so
+--         highlight and run each SQL query separately.
+-- 💡 TIP: Overture's S3 bucket is located in the us-west-2 AWS region,
+--         so use Athena in us-west-2 for best performance.
+------------------------------------------------------------------------
 
+
+-- =====================================================================
 -- Admins theme
+-- =====================================================================
+
 CREATE EXTERNAL TABLE `admins`(
   `id` string,
   `updateTime` string,
@@ -25,7 +41,13 @@ LOCATION
   's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins'
 
 
+MSCK REPAIR TABLE `admins`
+
+
+-- =====================================================================
 -- Buildings theme
+-- =====================================================================
+
 CREATE EXTERNAL TABLE `buildings`(
   `id` string,
   `updateTime` string,
@@ -45,7 +67,13 @@ LOCATION
   's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings'
 
 
+MSCK REPAIR TABLE `buildings`
+
+
+-- =====================================================================
 -- Places theme
+-- =====================================================================
+
 CREATE EXTERNAL TABLE `places`(
   `id` string,
   `updateTime` string,
@@ -68,5 +96,10 @@ STORED AS PARQUET
 LOCATION
   's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places'
 
+MSCK REPAIR TABLE `places`
 
+-- =====================================================================
 -- Transportation theme
+-- =====================================================================
+
+todo.
