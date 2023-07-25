@@ -85,7 +85,7 @@ Example Athena SQL query to download a CSV of places in Seattle:
 
 ```sql
 SELECT
-       CAST(names) AS JSON,
+       CAST(names AS JSON),
        geometry -- WKB
 FROM
        places
