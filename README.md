@@ -57,7 +57,7 @@ have organized the data for the `Overture 2023-07-26-alpha.0` release by theme a
   </tr>
 </table>
 
-#### Parquet Schema
+### Parquet Schema
 The Parquet files match the [Overture Data Schema](https://docs.overturemaps.org/)
 for each theme with the following enhancements:
 
@@ -81,7 +81,7 @@ documented below.
    - Run the following `CREATE TABLE` queries to set up your view of the tables (link).
    - Be sure to load the partitions by running `MSCK REPAIR <tablename>;` or choosing "Load Partitions" from the table options menu.
 
-Example query to download a CSV of places in Seattle:
+Example Athena SQL query to download a CSV of places in Seattle:
 
 ```sql
 SELECT
@@ -103,7 +103,7 @@ More information on using Athena is available in the [Amazon Athena User Guide](
 1. You will need an Azure account.
 2. Create a [Synapse workspace](https://learn.microsoft.com/en-us/azure/synapse-analytics/get-started-create-workspace).
 
-Example query to read places in the Seattle:
+Example SQL query to read places in Seattle:
 
 ```sql
 SELECT TOP 10 *
@@ -167,7 +167,7 @@ polygons and multipolygons.
 Check out [example notebooks here]() for instructions on how to use DuckDB inside a notebook for a more interactive experience.
 
 
-### 4. Download the Parquet files.
+### 4. Download the Parquet files
 You can download the Parquet files from either Azure Blob Storage or Amazon S3 at the locations given in the table at the top of the page.
 
 After installing the [Amazon CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html),
