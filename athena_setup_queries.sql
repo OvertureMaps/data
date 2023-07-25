@@ -70,3 +70,19 @@ LOCATION
 
 
 -- Transportation theme
+CREATE EXTERNAL TABLE `transportation`(
+  `id` string,
+  `updatetime` timestamp,
+  `version` int,
+  `level` int,
+  `subtype` varchar(4),
+  `connectors` array<string>,
+  `road` string,
+  `sources` array<map<string,string>>,
+  `bbox` map<string,double>,
+  `geometry` binary)
+PARTITIONED BY (
+  `type` varchar(9))
+STORED AS PARQUET
+LOCATION
+  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=transportation'
