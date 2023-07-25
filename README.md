@@ -2,45 +2,53 @@
 
 ## How to Access Overture Maps Data
 
-Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format. There is no single Overture "entire planet" file to be downloaded. Instead, we have organized the data by theme and type at the following locations:
+Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format.
+There is no single Overture "entire planet" file to be downloaded. Instead, we
+have organized the data by theme and type at the following locations:
 
 ### Data Location
-|Theme| Amazon S3 | Microsoft Azure |
-|-----|--------|----|
-|Admins| s3://<bucket> / release / admins /| overturemapswestus2.dfs.core.windows.net/release/ |
-|Buildings| s3://<bucket> / release / buildings | overturemapswestus2.dfs.core.windows.net/release/ |
-|Places| s3://<bucket> / release / places | overturemapswestus2.dfs.core.windows.net/release/ |
-|Transportation| s3://<bucket> / release / transportation | overturemapswestus2.dfs.core.windows.net/release/ |
+| Theme          | Amazon S3                                | Microsoft Azure                                   |
+|----------------|------------------------------------------|---------------------------------------------------|
+| Admins         | s3://<bucket> / release / admins /       | overturemapswestus2.dfs.core.windows.net/release/ |
+| Buildings      | s3://<bucket> / release / buildings      | overturemapswestus2.dfs.core.windows.net/release/ |
+| Places         | s3://<bucket> / release / places         | overturemapswestus2.dfs.core.windows.net/release/ |
+| Transportation | s3://<bucket> / release / transportation | overturemapswestus2.dfs.core.windows.net/release/ |
 
 ## Accessing Overture Maps Data
-These parquet files can be accessed either in the cloud or downloaded locally. We encourage users to access the data in the cloud via one of the methods below that interface with the parquet files through SQL queries. This will allow you to download only the data that you want.
+You can access Overture Parquet data files directly from the cloud, or copy them
+to your preferred destination, or download them locally. We do encourage you to
+fetch the data directly from the cloud using one of the SQL query options
+documented below.
 
 ### 1. Amazon Athena (SQL)
-1. You will need an AWS Account
-2. Run the following queries to setup the tables (link)
-3. Be sure to load the partitions by running `MSCK REPAIR <tablename>;` or choosing "Load Partitions from the table options menu.
+1. You will need an AWS account.
+2. In the [Amazon Athena](https://aws.amazon.com/athena/) console on AWS:
+   - Run the following `CREATE TABLE` queries to set up your view of the tables (link).
+   - Be sure to load the partitions by running `MSCK REPAIR <tablename>;` or choosing "Load Partitions" from the table options menu.
 
 Example query to download a CSV of places in Seattle:
 
 ```sql
 SELECT
-   CAST(names) AS JSON,
-   wkt AS wkt_geometry
+       CAST(names) AS JSON,
+       geometry -- WKB
 FROM
-   places
+       places
 WHERE
-   <bbox filter>
+       bbox.minX > -122.4447744
+   AND bbox.maxX < -122.2477071
+   AND bbox.minY > 47.5621587
+   AND bbox.maxY < 47.7120663
 ```
 
-This CSV includes
-
+More information on using Athena is available in the [Amazon Athena User Guide](https://docs.aws.amazon.com/athena/latest/ug/what-is.html).
 
 ### 2. Microsoft Synapse (SQL)
-You can explore Overture data using Azure Synapse Serverless SQL Pool.
 
-First, create a [Synapse workspace](https://learn.microsoft.com/en-us/azure/synapse-analytics/get-started-create-workspace).
+1. You will need an Azure account.
+2. Create a [Synapse workspace](https://learn.microsoft.com/en-us/azure/synapse-analytics/get-started-create-workspace).
 
-Here is an example query to read places data in Seattle bounding box:
+Example query to read places in the Seattle:
 
 ```sql
 SELECT TOP 10
@@ -67,9 +75,12 @@ FROM
 More information is available at [Query files using a serverless SQL pool - Training | Microsoft Learn](https://learn.microsoft.com/en-us/training/modules/query-data-lake-using-azure-synapse-serverless-sql-pools/3-query-files).
 
 ### 3. DuckDB (SQL)
-DuckDB can read the parquet files on S3 directly while downloading only what is required to execute your query.
+[DuckDB](https://duckdb.org/) is a command line database system you can run
+locally which can read Overture's Parquet data files directly from S3 while
+downloading only what is required to execute your query.
 
-If, for example, you wanted to download the administrative boundaries for all adminLevel=2 features, you could run:
+If, for example, you wanted to download the administrative boundaries for
+all `adminLevel=2` features, you could run:
 
 ```sql
 COPY (
@@ -87,7 +98,8 @@ COPY (
 ) TO 'countries.geojson'
 WITH (FORMAT GDAL, DRIVER 'GeoJSON');
 ```
-This will create a countries.geojson file containing 265 country polygons and multipolygons.
+This will create a `countries.geojson` file containing 265 country
+polygons and multipolygons.
 
 #### Jupyter Notebooks + DuckDB
 Check out [example notebooks here]() for instructions on how to use DuckDB inside a notebook for a more interactive experience.
