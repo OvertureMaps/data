@@ -24,7 +24,7 @@ have organized the data for the `Overture 2023-07-26-alpha.0` release by theme a
     <td>
       <ul>
         <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins</code></li>
-        <li>Microsoft Azure: <code>overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/</code></li>
+        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2023-07-26-alpha.0/theme=admins</code></li>
       </ul>
     </td>
   </tr>
@@ -33,7 +33,7 @@ have organized the data for the `Overture 2023-07-26-alpha.0` release by theme a
     <td>
       <ul>
         <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings</code></li>
-        <li>Microsoft Azure: <code>overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/</code></li>
+        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2023-07-26-alpha.0/theme=buildings</code></li>
       </ul>
     </td>
   </tr>
@@ -42,7 +42,7 @@ have organized the data for the `Overture 2023-07-26-alpha.0` release by theme a
     <td>
       <ul>
         <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places</code></li>
-        <li>Microsoft Azure: <code>overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/</code></li>
+        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2023-07-26-alpha.0/theme=places</code></li>
       </ul>
     </td>
   </tr>
@@ -51,7 +51,7 @@ have organized the data for the `Overture 2023-07-26-alpha.0` release by theme a
     <td>
       <ul>
         <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=transportation</code></li>
-        <li>Microsoft Azure: <code>overturemapswestus2.dfs.core.windows.net/release/2023-07-26-alpha.0/</code></li>
+        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2023-07-26-alpha.0/theme=transportation</code></li>
       </ul>
     </td>
   </tr>
@@ -109,7 +109,7 @@ Example query to read places in the Seattle:
 SELECT TOP 10 *
   FROM
        OPENROWSET(
-           BULK 'https://mdpcosmostoolsgen2.blob.core.windows.net/froms3/m5places/type=place/*',
+           BULK 'https://overturemapswestus2.blob.core.windows.net/release/2023-07-26-alpha.0/theme=places/type=place/',
            FORMAT = 'PARQUET'
        )
   WITH
@@ -119,7 +119,7 @@ SELECT TOP 10 *
            websites VARCHAR(MAX),
            phones VARCHAR(MAX),
            bbox VARCHAR(200),
-           geometry VARCHAR(MAX)
+           geometry VARBINARY(MAX)
        )
     AS
        [result]
