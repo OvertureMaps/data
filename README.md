@@ -1,24 +1,37 @@
-# Welcome to the Overture Maps Data Repo
+Welcome to the Overture Maps Data Repo
+===
+This repository includes instructions and sample queries to access Overture Maps Data.
 
-## How to Access Overture Maps Data
+We also welcome feedback about Overture Maps data in the [Discussions](https://github.com/OvertureMaps/data/discussions). Feedback on the *data schema*, is best provided in the [discussions in the *schema* repository](https://github.com/OvertureMaps/schema/discussions).
+
+
+Accessing Overture Maps Data
+---
 
 Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format. There is no single Overture "entire planet" file to be downloaded, instead, we have organized the data by theme and type at the following locations:
 
 ### Data Location
 |Theme| Amazon S3 | Microsoft Azure |
 |-----|--------|----|
-|Admins| s3://<bucket> / release / admins /| overturemapswestus2.dfs.core.windows.net/release/ |
-|Buildings| s3://<bucket> / release / buildings | overturemapswestus2.dfs.core.windows.net/release/ |
-|Places| s3://<bucket> / release / places | overturemapswestus2.dfs.core.windows.net/release/ |
-|Transportation| s3://<bucket> / release / transportation | overturemapswestus2.dfs.core.windows.net/release/ |
+|Admins| s3://overturemaps-us-west-2/release/2023-07-26/theme=admins | overturemapswestus2.dfs.core.windows.net/release/ |
+|Buildings| s3://overturemaps-us-west-2/release/2023-07-26/theme=buildings | overturemapswestus2.dfs.core.windows.net/release/ |
+|Places| s3://overturemaps-us-west-2/release/2023-07-26/theme=places | overturemapswestus2.dfs.core.windows.net/release/ |
+|Transportation| s3://overturemaps-us-west-2/release/2023-07-26/theme=transportation | overturemapswestus2.dfs.core.windows.net/release/ |
+
+#### Parquet Schema
+The parquet files match the Overture Data Schema for each theme with the following enhancments:
+
+1. The `geometry` column is encoded as WKB.
+2. The `bbox` column is a `struct` with the following attributes: `minX`, `maxX`, `minY`, `maxY`.
+3. The `id` column contains _temporary_ ids that are not yet part of the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/gers/). There is no guarantee of stability or consistenty with the ids in this data release.
 
 ## Accessing Overture Maps Data
-These parquet files can be accessed either in the cloud or downloaded locally. We encourage users to access the data in the cloud via one of the methods below that interface with the parquet files through SQL queries. This will allow you to download only the data that you want.
+The parquet files can be accessed either in the cloud or downloaded locally. We encourage users to access the data in the cloud via one of the methods below that interface with the parquet files through SQL queries. This will allow you to download only the data that you want.
 
 ### 1. Amazon Athena (SQL)
-1. You will need an AWS Account
-2. Run the following queries to setup the tables (link)
-3. Be sure to load the partitions by running `MSCK REPAIR <tablename>;` or choosing "Load Partitions from the table options menu.
+1. You will need an AWS account with access to Athena.
+2. Run the queries in the [athena_setup_queries.sql](https://github.com/overturemaps/data/ ... ) file to set up the tables.
+3. Be sure to load the partitions by running `MSCK REPAIR <tablename>;` or choosing "Load Partitions" from the table options menu.
 
 Example query to download a CSV of places in Seattle:
 
@@ -111,13 +124,11 @@ azcopy copy "https://overturemapswestus2.dfs.core.windows.net/release/<<director
 ```
 
 
+---
 
-
-
-
-
-## Data Release Feedback
-We are very interested in feedback on the Overture data. Please use the Discussion section of this repo to comment. Tagging it with the relevant theme name (Places, Transportation) will help direct your ideas.
+Data Release Feedback
+---
+We are very interested in feedback on the Overture data. Please use the [Discussion](https://github.com/OvertureMaps/data/discussions) section of this repo to comment. Tagging it with the relevant theme name (Places, Transportation) will help direct your ideas.
 
 ### Submissions
 
