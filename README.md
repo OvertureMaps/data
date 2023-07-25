@@ -8,7 +8,7 @@ We also welcome feedback about Overture Maps data in the [Discussions](https://g
 Accessing Overture Maps Data
 ---
 
-Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format. There is no single Overture "entire planet" file to be downloaded, instead, we have organized the data by theme and type at the following locations:
+Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format. There is no single Overture "entire planet" file to be downloaded. Instead, we have organized the data by theme and type at the following locations:
 
 ### Data Location
 |Theme| Amazon S3 | Microsoft Azure |
@@ -49,9 +49,9 @@ This CSV includes
 
 
 ### 2. Microsoft Synapse (SQL)
-You can also explore Overture data using Azure Synapse Serverless SQL Pool.
+You can explore Overture data using Azure Synapse Serverless SQL Pool.
 
-First, you will need to create a [Synapse workspace](https://learn.microsoft.com/en-us/azure/synapse-analytics/get-started-create-workspace).
+First, create a [Synapse workspace](https://learn.microsoft.com/en-us/azure/synapse-analytics/get-started-create-workspace).
 
 Here is an example query to read places data in Seattle bounding box:
 
