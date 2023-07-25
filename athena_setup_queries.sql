@@ -3,8 +3,8 @@
 ------------------------------------------------------------------------
 -- The below Athena SQL queries will create tables in your AWS account's
 -- data catalog pointing directly to data hosted on Overture's S3
--- bucket. You can then query Overture data directly without needing to
--- copy it.
+-- bucket. You can then query Overture data directly from Athena without
+-- needing to copy it.
 --
 -- 💡 TIP: Athena only allows one SQL statement to be run at a time, so
 --         highlight and run each SQL query separately.
