@@ -2,7 +2,7 @@ Welcome to the Overture Maps Data Repo
 ===
 This repository includes instructions and sample queries to access Overture Maps Data.
 
-We also welcome feedback about Overture Maps data in the [Discussions](https://github.com/OvertureMaps/data/discussions). Feedback on the *data schema*, is best provided in the [discussions in the *schema* repository](https://github.com/OvertureMaps/schema/discussions).
+We also welcome feedback about Overture Maps data in the [Discussions](https://github.com/OvertureMaps/data/discussions). Feedback on the data *schema*, is best provided in the [discussions in the *schema* repository](https://github.com/OvertureMaps/schema/discussions).
 
 
 Accessing Overture Maps Data
