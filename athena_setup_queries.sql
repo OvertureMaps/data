@@ -96,6 +96,7 @@ STORED AS PARQUET
 LOCATION
   's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places'
 
+
 MSCK REPAIR TABLE `places`
 
 
@@ -119,5 +120,6 @@ PARTITIONED BY (
 STORED AS PARQUET
 LOCATION
   's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=transportation'
+
 
 MSCK REPAIR TABLE `transportation`
