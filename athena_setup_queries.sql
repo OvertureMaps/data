@@ -98,8 +98,11 @@ LOCATION
 
 MSCK REPAIR TABLE `places`
 
+
 -- =====================================================================
 -- Transportation theme
+-- =====================================================================
+
 CREATE EXTERNAL TABLE `transportation`(
   `id` string,
   `updatetime` timestamp,
