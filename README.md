@@ -161,6 +161,24 @@ WITH (FORMAT GDAL, DRIVER 'GeoJSON');
 This will create a `countries.geojson` file containing 265 country
 polygons and multipolygons.
 
+To make this query work in DuckDB, you may need a couple of one-time
+setup items to install the [duckdb_spatial](https://github.com/duckdblabs/duckdb_spatial)
+and [httpfs](https://duckdb.org/docs/guides/import/s3_import.html) extensions:
+
+```sql
+INSTALL spatial;
+INSTALL httpfs;
+```
+
+And a couple of per-session items to load the extensions and tell DuckDB which
+S3 region to find Overture's data bucket in:
+
+```sql
+LOAD spatial;
+LOAD httpfs;
+SET s3_region='us-west-2';
+```
+
 #### Jupyter Notebooks + DuckDB
 
 **TODO: Link below doesn't exist yet. 👇**
