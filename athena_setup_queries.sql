@@ -105,10 +105,10 @@ MSCK REPAIR TABLE `places`
 
 CREATE EXTERNAL TABLE `transportation`(
   `id` string,
-  `updatetime` timestamp,
+  `updateTime` timestamp,
   `version` int,
   `level` int,
-  `subtype` varchar(4),
+  `subType` varchar(4),
   `connectors` array<string>,
   `road` string,
   `sources` array<map<string,string>>,
