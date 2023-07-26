@@ -189,7 +189,7 @@ Check out [example notebooks here]() for instructions on how to use DuckDB insid
 ### 4. Download the Parquet files
 You can download the Parquet files from either Azure Blob Storage or Amazon S3 at the locations given in the table at the top of the page.
 
-After installing the [Amazon CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html),
+After installing the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html),
 you can download the files from S3 using the below command. Set `<DESTINATION>` to a local directory path to
 download the files, or to an `s3://` path you control to copy them into your S3 bucket.
 ```bash
