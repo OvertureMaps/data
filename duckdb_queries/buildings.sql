@@ -3,23 +3,19 @@ LOAD spatial;
 
 COPY (
     SELECT
-        'buildings' as theme,
         type,
         version,
-        updatetime as updateTime,
+        CAST(updatetime as varchar) as updateTime,
         height,
         numfloors as numFloors,
         level,
         class,
         JSON(names) as names,
         JSON(sources) as sources,
-        ST_GeomFromText(geometry) as geometry
+        ST_GeomFromWKB(geometry) as geometry
     FROM
-    read_parquet('s3://omf-internal-usw2/staging/buildings/type=*/*', hive_partitioning=1)
-    WHERE
-        bbox.miny > 45
-        AND bbox.maxy < 48
-        AND bbox.minx > -125
-        AND bbox.maxx < -122
-    ) TO 'buildings.geojsonseq'
+        read_parquet('s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings/type=*/*', hive_partitioning=1)
+    LIMIT
+        100
+    ) TO 'buildings_sample.geojsonseq'
 WITH (FORMAT GDAL, DRIVER 'GeoJSONSeq');
