@@ -112,7 +112,7 @@ CREATE EXTERNAL TABLE `transportation`(
   `connectors` array<string>,
   `road` string,
   `sources` array<map<string,string>>,
-  `bbox` map<string,double>,
+  `bbox` struct<minX:double,maxX:double,minY:double,maxY:double>,
   `geometry` binary)
 PARTITIONED BY (
   `type` varchar(9))
