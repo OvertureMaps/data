@@ -61,7 +61,7 @@ have organized the data for the `Overture 2023-07-26-alpha.0` release by theme a
 The Parquet files match the [Overture Data Schema](https://docs.overturemaps.org/)
 for each theme with the following enhancements:
 
-1. The `id` column contains _temporary_ IDs that are not yet part of the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/gers/). 
+1. The `id` column contains _temporary_ IDs that are not yet part of the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/gers/).
    These IDs are not yet stable and are likely to change significantly up
    to the point that GERS is released.
 2. The `bbox` column is a `struct` with the following attributes:
@@ -179,11 +179,11 @@ LOAD httpfs;
 SET s3_region='us-west-2';
 ```
 
-#### Jupyter Notebooks + DuckDB
+<!-- #### Jupyter Notebooks + DuckDB
 
 **TODO: Link below doesn't exist yet. 👇**
 
-Check out [example notebooks here]() for instructions on how to use DuckDB inside a notebook for a more interactive experience.
+Check out [example notebooks here]() for instructions on how to use DuckDB inside a notebook for a more interactive experience. -->
 
 
 ### 4. Download the Parquet files
@@ -196,7 +196,7 @@ download the files, or to an `s3://` path you control to copy them into your S3 
 aws s3 cp --no-sign-request --recursive s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/ <DESTINATION>
 ```
 
-You can download the files from Azure Blob Storage using 
+You can download the files from Azure Blob Storage using
 [Azure Storage Explorer](https://azure.microsoft.com/en-us/products/storage/storage-explorer/)
 or the [AzCopy](https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&bc=%2Fazure%2Fstorage%2Fblobs%2Fbreadcrumb%2Ftoc.json#download-azcopy)
 command. An example `azcopy` command is given below.
