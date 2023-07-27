@@ -193,7 +193,7 @@ After installing the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/
 you can download the files from S3 using the below command. Set `<DESTINATION>` to a local directory path to
 download the files, or to an `s3://` path you control to copy them into your S3 bucket.
 ```bash
-aws s3 cp --no-sign-request --recursive s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/ <DESTINATION>
+aws s3 cp --region us-west-2 --no-sign-request --recursive s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/ <DESTINATION>
 ```
 
 You can download the files from Azure Blob Storage using
