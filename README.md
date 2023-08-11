@@ -185,8 +185,27 @@ SET s3_region='us-west-2';
 
 Check out [example notebooks here]() for instructions on how to use DuckDB inside a notebook for a more interactive experience. -->
 
+### 4. Apache Sedona (Python + Spatial SQL)
 
-### 4. Download the Parquet files
+You can get a single-node Sedona Docker image from [Apache Software Foundation DockerHub](https://hub.docker.com/r/apache/sedona) and run `docker run -p 8888:8888 apache/sedona:latest`. A Jupyter Lab and notebook examples will be available at http://localhost:8888/. You can also install Sedona to Databricks, AWS EMR and Snowflake using [Wherobots](https://www.wherobots.ai/demo).
+
+The following Python + Spatial SQL code reads the building dataset and runs a spatial filter query on it.
+
+```
+import sedona.spark.*
+
+config = SedonaContext.builder().getOrCreate()
+sedona = SedonaContext(config)
+
+df = sedona.read.format("parquet").load("s3a://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings/type=building")
+
+df.filter("ST_Contains(ST_GeomFromWKT('POLYGON((-123.32 49.00,-123.03 49.01,-123.32 49.00))'), ST_GeomFromWKB(geometry)) = true").show()
+```
+
+For more examples, please click the [Notebook examples](https://github.com/wherobots/OvertureMaps).
+
+
+### 5. Download the Parquet files
 You can download the Parquet files from either Azure Blob Storage or Amazon S3 at the locations given in the table at the top of the page.
 
 After installing the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html),
