@@ -189,7 +189,7 @@ Check out [example notebooks here]() for instructions on how to use DuckDB insid
 
 You can get a single-node Sedona Docker image from [Apache Software Foundation DockerHub](https://hub.docker.com/r/apache/sedona) and run `docker run -p 8888:8888 apache/sedona:latest`. A Jupyter Lab and notebook examples will be available at http://localhost:8888/. You can also install Sedona to Databricks, AWS EMR and Snowflake using [Wherobots](https://www.wherobots.ai/demo).
 
-The following Python + Spatial SQL code reads the building dataset and runs a spatial filter query on it.
+The following Python + Spatial SQL code reads the Places dataset and runs a spatial filter query on it.
 
 ```
 import sedona.spark.*
@@ -197,9 +197,9 @@ import sedona.spark.*
 config = SedonaContext.builder().getOrCreate()
 sedona = SedonaContext(config)
 
-df = sedona.read.format("parquet").load("s3a://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings/type=building")
+df = sedona.read.format("parquet").load("s3a://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places/type=place")
 
-df.filter("ST_Contains(ST_GeomFromWKT('POLYGON((-123.32 49.00,-123.03 49.01,-123.32 49.00))'), ST_GeomFromWKB(geometry)) = true").show()
+df.filter("ST_Contains(ST_GeomFromWKT('POLYGON((-122.48 47.43,-122.20 47.75,-121.92 47.37,-122.48 47.43))'), ST_GeomFromWKB(geometry)) = true").show()
 ```
 
 For more examples, please click the [Notebook examples](https://github.com/wherobots/OvertureMaps).
