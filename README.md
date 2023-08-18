@@ -197,7 +197,7 @@ download the files, or to an `s3://` path you control to copy them into your S3 
 aws s3 cp --region us-west-2 --no-sign-request --recursive s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/ <DESTINATION>
 ```
 
-The total size of all of the files are a little over 200 GB.
+The total size of all of the files is a little over 200 GB.
 
 You can download the files from Azure Blob Storage using
 [Azure Storage Explorer](https://azure.microsoft.com/en-us/products/storage/storage-explorer/)
