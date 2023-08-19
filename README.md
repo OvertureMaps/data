@@ -192,10 +192,10 @@ You can get a single-node Sedona Docker image from [Apache Software Foundation D
 The following Python + Spatial SQL code reads the Places dataset and runs a spatial filter query on it.
 
 ```
-import sedona.spark.*
+from sedona.spark import *
 
-config = SedonaContext.builder().getOrCreate()
-sedona = SedonaContext(config)
+config = SedonaContext.builder().config("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider").getOrCreate()
+sedona = SedonaContext.create(config)
 
 df = sedona.read.format("parquet").load("s3a://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places/type=place")
 
