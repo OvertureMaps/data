@@ -203,7 +203,7 @@ df = sedona.read.format("parquet").load("s3a://overturemaps-us-west-2/release/20
 df.filter("ST_Contains(ST_GeomFromWKT('POLYGON((-122.48 47.43,-122.20 47.75,-121.92 47.37,-122.48 47.43))'), ST_GeomFromWKB(geometry)) = true").show()
 ```
 
-For more examples, please click the [Notebook examples](https://github.com/wherobots/OvertureMaps).
+For more examples from wherobots, check out their Overture-related [Notebook examples](https://github.com/wherobots/OvertureMaps).
 
 
 ### 5. Download the Parquet files
