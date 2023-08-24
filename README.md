@@ -77,7 +77,8 @@ documented below.
 
 ### 1. Amazon Athena (SQL)
 1. You will need an AWS account.
-2. In the [Amazon Athena](https://aws.amazon.com/athena/) console on AWS:
+2. Ensure that you are operating in the us-west-2 region.
+3. In the [Amazon Athena](https://aws.amazon.com/athena/) console on AWS:
    - Run `CREATE EXTERNAL TABLE` queries to set up your view of the tables: [click for queries](athena_setup_queries.sql).
    - Be sure to load the partitions by running `MSCK REPAIR <tablename>;` or choosing "Load Partitions" from the table options menu.
 
