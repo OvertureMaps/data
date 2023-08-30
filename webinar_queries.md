@@ -108,11 +108,15 @@ WHERE ST_CONTAINS(
 ```
 Save the following file as a `buildings.csv` and then convert it to a GeoJSON:
 
-```
-ogr2ogr buildings.geojson buildings.csv
+```bash
+ogr2ogr -select height,class buildings.geojson buildings.csv
 ```
 
-Then try using tippecanoe to create tiles
+Then try using [tippecanoe](//github.com/felt/tippecanoe) to create tiles
 ```bash
-tippecanoe -x wkt -z13 -Z13 -fo buildings.pmtiles buildings.geojson
+tippecanoe -z13 -Z13 -fo buildings.pmtiles buildings.geojson
 ```
+
+You can then use [PMTiles Viewer](https://protomaps.github.io/PMTiles/) to explore the tiles.
+
+View the complete example map at [labs.overturemaps.org/overture-with-daylight](https://labs.overturemaps.org/overture-with-daylight)
