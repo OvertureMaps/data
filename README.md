@@ -179,7 +179,14 @@ LOAD spatial;
 LOAD httpfs;
 SET s3_region='us-west-2';
 ```
+To get the same query working against Azure blob storage, you need to install and load Azure extension, and set connection string.
 
+```sql
+INSTALL azure;
+LOAD azure;
+SET azure_storage_connection_string = 'DefaultEndpointsProtocol=https;AccountName=overturemapswestus2;AccountKey=;EndpointSuffix=core.windows.net';
+```
+Here is an example path to be passed to ```read_parquet``` method: ```azure://release/2023-07-26-alpha.0/theme=admins/type=*/*```
 <!-- #### Jupyter Notebooks + DuckDB
 
 **TODO: Link below doesn't exist yet. 👇**
