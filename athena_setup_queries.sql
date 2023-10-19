@@ -54,12 +54,7 @@ CREATE EXTERNAL TABLE `overture_2023_10_19_alpha_0`(
 PARTITIONED BY ( 
   `theme` string, 
   `type` string)
-ROW FORMAT SERDE 
-  'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe' 
-STORED AS INPUTFORMAT 
-  'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat' 
-OUTPUTFORMAT 
-  'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat'
+STORED AS PARQUET 
 LOCATION
   's3://overturemaps-us-west-2/release/2023-10-19-alpha.0'
 
