@@ -20,7 +20,7 @@ COPY (
        CAST(sources AS JSON) AS sources,
        ST_GeomFromWKB(geometry)
     FROM
-       read_parquet('s3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places/type=*/*', hive_partitioning=1)
+       read_parquet('s3://overturemaps-us-west-2/release/2023-10-19-alpha.0/theme=places/type=*/*', hive_partitioning=1)
     WHERE
         bbox.minx > -122.4447744
         AND bbox.maxx < -122.2477071
