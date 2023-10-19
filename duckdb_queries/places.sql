@@ -26,7 +26,7 @@ COPY (
         AND bbox.maxx < -122.2477071
         AND bbox.miny > 47.5621587
         AND bbox.maxy < 47.7120663
-    ) TO 'places_seattle.geojsonseq'
+    ) TO 'places_seattle.geojsonl'
 WITH (FORMAT GDAL, DRIVER 'GeoJSONSeq');
 
 -- Tip: Replace the last 2 lines with:
