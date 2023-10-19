@@ -12,8 +12,64 @@
 --         so use Athena in us-west-2 for best performance.
 ------------------------------------------------------------------------
 
+-- October 2023 Release: 
+
+CREATE EXTERNAL TABLE `overture_2023_10_19_alpha_0`(
+  `categories` struct<main:string,alternate:array<string>>, 
+  `level` int, 
+  `socials` array<string>, 
+  `subtype` string, 
+  `numfloors` int, 
+  `entityid` string, 
+  `class` string, 
+  `sourcetags` map<string,string>, 
+  `localitytype` string, 
+  `emails` array<string>, 
+  `drivingside` string, 
+  `adminlevel` int, 
+  `road` string, 
+  `isocountrycodealpha2` string, 
+  `isosubcountrycode` string, 
+  `updatetime` string, 
+  `wikidata` string, 
+  `confidence` double, 
+  `defaultlanguage` string, 
+  `brand` struct<names:struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,wikidata:string>, 
+  `addresses` array<struct<freeform:string,locality:string,postCode:string,region:string,country:string>>, 
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>, 
+  `isintermittent` boolean, 
+  `connectors` array<string>, 
+  `surface` string, 
+  `version` int, 
+  `phones` array<string>, 
+  `id` string, 
+  `geometry` binary, 
+  `context` string, 
+  `height` double, 
+  `maritime` boolean, 
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>, 
+  `websites` array<string>, 
+  `issalt` boolean, 
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+PARTITIONED BY ( 
+  `theme` string, 
+  `type` string)
+ROW FORMAT SERDE 
+  'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe' 
+STORED AS INPUTFORMAT 
+  'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat' 
+OUTPUTFORMAT 
+  'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat'
+LOCATION
+  's3://overturemaps-us-west-2/release/2023-10-19-alpha.0'
+
+
 
 -- =====================================================================
+-- The below queries are for the July 2023 Data Release
+
+
+
 -- Admins theme
 -- =====================================================================
 
