@@ -89,7 +89,7 @@ PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-10-19-alpha.0/theme=admins'
+  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins'
 
 
 MSCK REPAIR TABLE `admins`
@@ -115,7 +115,7 @@ PARTITIONED BY (
   `type` varchar(8))
 STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-10-19-alpha.0/theme=buildings'
+  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings'
 
 
 MSCK REPAIR TABLE `buildings`
@@ -145,7 +145,7 @@ PARTITIONED BY (
   `type` varchar(5))
 STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-10-19-alpha.0/theme=places'
+  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places'
 
 
 MSCK REPAIR TABLE `places`
@@ -170,7 +170,7 @@ PARTITIONED BY (
   `type` varchar(9))
 STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-10-19-alpha.0/theme=transportation'
+  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=transportation'
 
 
 MSCK REPAIR TABLE `transportation`
