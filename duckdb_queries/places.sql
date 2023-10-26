@@ -27,7 +27,7 @@ COPY (
         AND bbox.miny > 47.5621587
         AND bbox.maxy < 47.7120663
     ) TO 'places_seattle.geojsonseq'
-WITH (FORMAT GDAL, DRIVER 'GeoJSONSeq');
+WITH (FORMAT GDAL, DRIVER 'GeoJSONSeq', SRS 'EPSG:4326');
 
 -- Tip: Replace the last 2 lines with:
 --
