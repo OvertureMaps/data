@@ -147,6 +147,8 @@ More information is available at [Query files using a serverless SQL pool - Trai
 locally that can efficiently query remote Parquet files using SQL. It
 will only download the subset of files it needs to fulfil your queries.
 
+Ensure you are using DuckDB >= 0.9.1 to support the `SRS` parameter. 
+
 If, for example, you wanted to download the administrative boundaries
 for all `adminLevel=2` features, you could run:
 
