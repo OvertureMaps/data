@@ -12,7 +12,7 @@
 --         so use Athena in us-west-2 for best performance.
 ------------------------------------------------------------------------
 
--- October 2023 Release: 
+-- October 2023 Release uses a unified schema for all themes. There's no need to create separate tables for each theme if you are only interested in the October 2023 Release data.
 
 CREATE EXTERNAL TABLE `overture_2023_10_19_alpha_0`(
   `categories` struct<main:string,alternate:array<string>>, 
@@ -58,6 +58,8 @@ STORED AS PARQUET
 LOCATION
   's3://overturemaps-us-west-2/release/2023-10-19-alpha.0'
 
+
+MSCK REPAIR TABLE `overture_2023_10_19_alpha_0`;
 
 
 -- =====================================================================
