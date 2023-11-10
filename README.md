@@ -153,24 +153,31 @@ If, for example, you wanted to download the administrative boundaries
 for all `adminLevel=2` features, you could run:
 
 ```sql
+CREATE VIEW admins_view AS
+SELECT * FROM read_parquet('s3://overturemaps-us-west-2/release/<release-version>/theme=admins/type=*/*', filename=true, hive_partitioning=1);
 COPY (
     SELECT
-           type,
-           subType,
-           localityType,
-           adminLevel,
-           isoCountryCodeAlpha2,
-           JSON(names) AS names,
-           JSON(sources) AS sources,
-           ST_GeomFromWkb(geometry) AS geometry
-      FROM read_parquet('s3://overturemaps-us-west-2/release/2023-10-19-alpha.0/theme=admins/type=*/*', filename=true, hive_partitioning=1)
-     WHERE adminLevel = 2
-       AND ST_GeometryType(ST_GeomFromWkb(geometry)) IN ('POLYGON','MULTIPOLYGON')
+            admins.id,
+            admins.subType,
+            admins.isoCountryCodeAlpha2,
+            JSON(admins.names) AS names,
+            JSON(admins.sources) AS sources,
+            areas.areaId,
+            ST_GeomFromWKB(areas.areaGeometry) as geometry
+    FROM admins_view AS admins
+    INNER JOIN (
+        SELECT 
+            id as areaId, 
+            localityId, 
+            geometry AS areaGeometry
+        FROM admins_view
+    ) AS areas ON areas.localityId == admins.id
+    WHERE admins.adminLevel = 2
 ) TO 'countries.geojson'
 WITH (FORMAT GDAL, DRIVER 'GeoJSON');
 ```
 
-This will create a `countries.geojson` file containing 265 country
+This will create a `countries.geojson` file containing 280 country
 polygons and multipolygons.
 
 To make this query work in DuckDB, you may need a couple of one-time
@@ -217,8 +224,7 @@ config = SedonaContext.builder().config("fs.s3a.aws.credentials.provider", "org.
 sedona = SedonaContext.create(config)
 
 df = sedona.read.format("parquet").load("s3a://overturemaps-us-west-2/release/2023-10-19-alpha.0/theme=places/type=place")
-
-df.filter("ST_Contains(ST_GeomFromWKT('POLYGON((-122.48 47.43,-122.20 47.75,-121.92 47.37,-122.48 47.43))'), ST_GeomFromWKB(geometry)) = true").show()
+df.filter("ST_Contains(ST_GeomFromWKT('POLYGON((-122.48 47.43,-122.20 47.75,-121.92 47.37,-122.48 47.43))'), geometry) = true").show()
 ```
 
 For more examples from wherobots, check out their Overture-related [Notebook examples](https://github.com/wherobots/OvertureMaps).
