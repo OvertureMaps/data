@@ -12,54 +12,56 @@
 --         so use Athena in us-west-2 for best performance.
 ------------------------------------------------------------------------
 
--- October 2023 Release uses a unified schema for all themes. There's no need to create separate tables for each theme if you are only interested in the October 2023 Release data.
+-- The October 2023 Release (and after) uses a unified schema for all themes. There's no need to create separate tables for each theme if you are only interested in the October 2023 Release data.
 
-CREATE EXTERNAL TABLE `overture_2023_10_19_alpha_0`(
-  `categories` struct<main:string,alternate:array<string>>, 
-  `level` int, 
-  `socials` array<string>, 
-  `subtype` string, 
-  `numfloors` int, 
-  `entityid` string, 
-  `class` string, 
-  `sourcetags` map<string,string>, 
-  `localitytype` string, 
-  `emails` array<string>, 
-  `drivingside` string, 
-  `adminlevel` int, 
-  `road` string, 
-  `isocountrycodealpha2` string, 
-  `isosubcountrycode` string, 
-  `updatetime` string, 
-  `wikidata` string, 
-  `confidence` double, 
-  `defaultlanguage` string, 
-  `brand` struct<names:struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,wikidata:string>, 
-  `addresses` array<struct<freeform:string,locality:string,postCode:string,region:string,country:string>>, 
-  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>, 
-  `isintermittent` boolean, 
-  `connectors` array<string>, 
-  `surface` string, 
-  `version` int, 
-  `phones` array<string>, 
-  `id` string, 
-  `geometry` binary, 
-  `context` string, 
-  `height` double, 
-  `maritime` boolean, 
-  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>, 
-  `websites` array<string>, 
-  `issalt` boolean, 
+CREATE EXTERNAL TABLE `overture` (
+  `categories` struct<main:string,alternate:array<string>>,
+  `level` int,
+  `geopoldisplay` string,
+  `socials` array<string>,
+  `subtype` string,
+  `numfloors` int,
+  `class` string,
+  `sourcetags` map<string,string>,
+  `contextid` string,
+  `localitytype` string,
+  `emails` array<string>,
+  `ismaritime` boolean,
+  `drivingside` string,
+  `localityid` string,
+  `adminlevel` int,
+  `road` string,
+  `isocountrycodealpha2` string,
+  `isosubcountrycode` string,
+  `updatetime` string,
+  `wikidata` string,
+  `confidence` double,
+  `defaultlanguage` string,
+  `brand` struct<names:struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,wikidata:string>,
+  `addresses` array<struct<freeform:string,locality:string,postCode:string,region:string,country:string>>,
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
+  `isintermittent` boolean,
+  `connectors` array<string>,
+  `surface` string,
+  `version` int,
+  `phones` array<string>,
+  `id` string,
+  `height` double,
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
+  `websites` array<string>,
+  `issalt` boolean,
+  `geometry` binary,
   `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
-PARTITIONED BY ( 
-  `theme` string, 
+PARTITIONED BY (
+  `theme` string,
   `type` string)
-STORED AS PARQUET 
+STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-10-19-alpha.0'
+  's3://overturemaps-us-west-2/release/<release-version>/'
 
 
-MSCK REPAIR TABLE `overture_2023_10_19_alpha_0`;
+-- Load partitions
+MSCK REPAIR TABLE `overture`;
 
 
 -- =====================================================================
@@ -71,55 +73,88 @@ MSCK REPAIR TABLE `overture_2023_10_19_alpha_0`;
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `admins`(
-  `id` string,
-  `updateTime` string,
+  `geopoldisplay` string,
+  `subtype` string,
+  `sourcetags` map<string,string>,
+  `contextid` string,
+  `localitytype` string,
+  `ismaritime` boolean,
+  `drivingside` string,
+  `localityid` string,
+  `adminlevel` int,
+  `isocountrycodealpha2` string,
+  `isosubcountrycode` string,
+  `updatetime` string,
+  `defaultlanguage` string,
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
   `version` int,
-  `names` map<string,array<map<string,string>>>,
-  `adminLevel` int,
-  `maritime` string,
-  `subType` string,
-  `localityType` string,
-  `context` string,
-  `isoCountryCodeAlpha2` string,
-  `isoSubCountryCode` string,
-  `defaultLanugage` string,
-  `drivingSide` string,
-  `sources` array<map<string,string>>,
-  `bbox` struct<minX:double,maxX:double,minY:double,maxY:double>,
-  `geometry` binary)
+  `id` string,
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
+  `geometry` binary,
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
 PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=admins'
+  's3://overturemaps-us-west-2/release/<release-version>/theme=admins'
 
 
+-- Load partitions
 MSCK REPAIR TABLE `admins`
 
+-- =====================================================================
+-- Base theme
+-- =====================================================================
+
+CREATE EXTERNAL TABLE `base`(
+  `subtype` string,
+  `class` string,
+  `sourcetags` map<string,string>,
+  `updatetime` string,
+  `wikidata` string,
+  `isintermittent` boolean,
+  `surface` string,
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
+  `version` int,
+  `id` string,
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
+  `issalt` boolean,
+  `geometry` binary,
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+PARTITIONED BY (
+  `type` string)
+STORED AS PARQUET
+LOCATION
+  's3://overturemaps-us-west-2/release/<release-version>/theme=base'
+
+
+-- Load partitions
+MSCK REPAIR TABLE `base`
 
 -- =====================================================================
 -- Buildings theme
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `buildings`(
-  `id` string,
-  `updateTime` string,
-  `version` int,
-  `names` map<string,array<map<string,string>>>,
   `level` int,
-  `height` double,
-  `numFloors` int,
+  `numfloors` int,
   `class` string,
-  `sources` array<map<string,string>>,
-  `bbox` struct<minX:double,maxX:double,minY:double,maxY:double>,
-  `geometry` binary)
+  `sourcetags` map<string,string>,
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
+  `version` int,
+  `id` string,
+  `height` double,
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
+  `geometry` binary,
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
 PARTITIONED BY (
-  `type` varchar(8))
+  `type` string)
 STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=buildings'
+  's3://overturemaps-us-west-2/release/<release-version>/theme=buildings'
 
 
+-- Load partitions
 MSCK REPAIR TABLE `buildings`
 
 
@@ -128,28 +163,29 @@ MSCK REPAIR TABLE `buildings`
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `places`(
-  `id` string,
-  `updateTime` string,
-  `version` int,
-  `names` map<string,array<map<string,string>>>,
   `categories` struct<main:string,alternate:array<string>>,
-  `confidence` double,
-  `websites` array<string>,
   `socials` array<string>,
+  `sourcetags` map<string,string>,
   `emails` array<string>,
+  `updatetime` string,
+  `confidence` double,
+  `brand` struct<names:struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,wikidata:string>,
+  `addresses` array<struct<freeform:string,locality:string,postCode:string,region:string,country:string>>,
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
   `phones` array<string>,
-  `brand` struct<names:map<string,array<map<string,string>>>,wikidata:string>,
-  `addresses` array<map<string,string>>,
-  `sources` array<map<string,string>>,
-  `bbox` struct<minX:double,maxX:double,minY:double,maxY:double>,
-  `geometry` binary)
+  `id` string,
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
+  `websites` array<string>,
+  `geometry` binary,
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
 PARTITIONED BY (
-  `type` varchar(5))
+  `type` string)
 STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=places'
+  's3://overturemaps-us-west-2/release/<release-version>/theme=places'
 
 
+-- Load partitions
 MSCK REPAIR TABLE `places`
 
 
@@ -158,21 +194,23 @@ MSCK REPAIR TABLE `places`
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `transportation`(
-  `id` string,
-  `updateTime` timestamp,
-  `version` int,
-  `level` int,
-  `subType` varchar(4),
-  `connectors` array<string>,
+  `subtype` string,
+  `sourcetags` map<string,string>,
   `road` string,
-  `sources` array<map<string,string>>,
-  `bbox` struct<minX:double,maxX:double,minY:double,maxY:double>,
-  `geometry` binary)
+  `updatetime` string,
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
+  `connectors` array<string>,
+  `version` int,
+  `id` string,
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
+  `geometry` binary,
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
 PARTITIONED BY (
-  `type` varchar(9))
+  `type` string)
 STORED AS PARQUET
 LOCATION
-  's3://overturemaps-us-west-2/release/2023-07-26-alpha.0/theme=transportation'
+  's3://overturemaps-us-west-2/release/<release-version>/theme=transportation'
 
 
+-- Load partitions
 MSCK REPAIR TABLE `transportation`
