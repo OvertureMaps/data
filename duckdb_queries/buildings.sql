@@ -14,7 +14,7 @@ COPY (
         JSON(sources) as sources,
         ST_GeomFromWKB(geometry) as geometry
     FROM
-        read_parquet('s3://overturemaps-us-west-2/release/2023-10-19-alpha.0/theme=buildings/type=*/*', hive_partitioning=1)
+        read_parquet('s3://overturemaps-us-west-2/release/<release-version>/theme=buildings/type=*/*', hive_partitioning=1)
     LIMIT
         100
     ) TO 'buildings_sample.geojsonseq'
