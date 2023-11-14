@@ -223,7 +223,7 @@ from sedona.spark import *
 config = SedonaContext.builder().config("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider").getOrCreate()
 sedona = SedonaContext.create(config)
 
-df = sedona.read.format("parquet").load("s3a://overturemaps-us-west-2/release/2023-11-14-alpha.0/theme=places/type=place")
+df = sedona.read.format("geoparquet").load("s3a://overturemaps-us-west-2/release/2023-11-14-alpha.0/theme=places/type=place")
 df.filter("ST_Contains(ST_GeomFromWKT('POLYGON((-122.48 47.43,-122.20 47.75,-121.92 47.37,-122.48 47.43))'), geometry) = true").show()
 ```
 
