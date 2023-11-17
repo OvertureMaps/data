@@ -145,16 +145,34 @@ More information is available at [Query files using a serverless SQL pool - Trai
 ### 3. DuckDB (SQL)
 [DuckDB](https://duckdb.org/) is an analytics tool you can install
 locally that can efficiently query remote Parquet files using SQL. It
-will only download the subset of files it needs to fulfil your queries.
+will only download the subset of files it needs to fulfill your queries.
 
 Ensure you are using DuckDB >= 0.9.1 to support the `SRS` parameter. 
 
+We provide a [setup script](duckdb_queries/setup_v2023_11_14.sql) that sets up
+an Overture environment in duckdb giving you easy views into Overture data.
+
+For example, from the duckdb CLI:
+```
+D .read setup_v2023_11_14.sql
+D show tables;
+┌────────────────┐
+│      name      │
+│    varchar     │
+├────────────────┤
+│ admins         │
+│ base           │
+│ buildings      │
+│ overture       │
+│ places         │
+│ transportation │
+└────────────────┘
+```
+
 If, for example, you wanted to download the administrative boundaries
-for all `adminLevel=2` features, you could run:
+for all `adminLevel=2` features, you could now run:
 
 ```sql
-CREATE VIEW admins_view AS
-SELECT * FROM read_parquet('s3://overturemaps-us-west-2/release/2023-11-14-alpha.0/theme=admins/type=*/*', filename=true, hive_partitioning=1);
 COPY (
     SELECT
             admins.id,
@@ -164,13 +182,13 @@ COPY (
             JSON(admins.sources) AS sources,
             areas.areaId,
             ST_GeomFromWKB(areas.areaGeometry) as geometry
-    FROM admins_view AS admins
+    FROM admins
     INNER JOIN (
         SELECT 
             id as areaId, 
             localityId, 
             geometry AS areaGeometry
-        FROM admins_view
+        FROM admins
     ) AS areas ON areas.localityId == admins.id
     WHERE admins.adminLevel = 2
 ) TO 'countries.geojson'
@@ -182,7 +200,8 @@ polygons and multipolygons.
 
 To make this query work in DuckDB, you may need a couple of one-time
 setup items to install the [duckdb_spatial](https://github.com/duckdblabs/duckdb_spatial)
-and [httpfs](https://duckdb.org/docs/guides/import/s3_import.html) extensions:
+and [httpfs](https://duckdb.org/docs/guides/import/s3_import.html) extensions. The
+setup script above will do this for you:
 
 ```sql
 INSTALL spatial;
