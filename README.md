@@ -76,7 +76,7 @@ for each theme with the following enhancements:
 2. The `bbox` column is a `struct` with the following attributes:
    `minX`, `maxX`, `minY`, `maxY`. This column allows you to craft more
    efficient spatial queries when running SQL against the cloud.
-3. The `geometry` column is encoded as WKB.
+3. The `geometry` column is encoded as GeoParquet.
 
 ## Accessing Overture Maps Data
 You can access Overture Parquet data files directly from the cloud, or copy them
