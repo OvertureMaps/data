@@ -86,25 +86,24 @@ MSCK REPAIR TABLE `overture`;
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `admins`(
-  `geopoldisplay` string,
-  `subtype` string,
-  `sourcetags` map<string,string>,
-  `contextid` string,
-  `localitytype` string,
-  `ismaritime` boolean,
-  `drivingside` string,
-  `localityid` string,
-  `adminlevel` int,
-  `isocountrycodealpha2` string,
-  `isosubcountrycode` string,
-  `updatetime` string,
-  `defaultlanguage` string,
-  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
-  `version` int,
-  `id` string,
-  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
-  `geometry` binary,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+  `id` string, 
+  `geometry` binary, 
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>, 
+  `subtype` string, 
+  `localitytype` string, 
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>, 
+  `contextid` string, 
+  `adminlevel` int, 
+  `isocountrycodealpha2` string, 
+  `isosubcountrycode` string, 
+  `defaultlanguage` string, 
+  `drivingside` string, 
+  `version` int, 
+  `updatetime` string, 
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>, 
+  `ismaritime` boolean, 
+  `geopoldisplay` string, 
+  `localityid` string)
 PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
@@ -120,20 +119,20 @@ MSCK REPAIR TABLE `admins`
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `base`(
-  `subtype` string,
-  `class` string,
-  `sourcetags` map<string,string>,
-  `updatetime` string,
-  `wikidata` string,
-  `isintermittent` boolean,
-  `surface` string,
-  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
-  `version` int,
-  `id` string,
-  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
-  `issalt` boolean,
-  `geometry` binary,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+  `id` string, 
+  `geometry` binary, 
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>, 
+  `subtype` string, 
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>, 
+  `version` int, 
+  `updatetime` string, 
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>, 
+  `class` string, 
+  `sourcetags` map<string,string>, 
+  `wikidata` string, 
+  `surface` string, 
+  `issalt` boolean, 
+  `isintermittent` boolean)
 PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
@@ -187,21 +186,21 @@ MSCK REPAIR TABLE `buildings`
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `places`(
-  `categories` struct<main:string,alternate:array<string>>,
-  `socials` array<string>,
-  `sourcetags` map<string,string>,
-  `emails` array<string>,
-  `updatetime` string,
-  `confidence` double,
-  `brand` struct<names:struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,wikidata:string>,
-  `addresses` array<struct<freeform:string,locality:string,postCode:string,region:string,country:string>>,
-  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
-  `phones` array<string>,
-  `id` string,
-  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
-  `websites` array<string>,
-  `geometry` binary,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+  `id` string, 
+  `geometry` binary, 
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>, 
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>, 
+  `version` int, 
+  `updatetime` string, 
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>, 
+  `categories` struct<main:string,alternate:array<string>>, 
+  `confidence` double, 
+  `websites` array<string>, 
+  `socials` array<string>, 
+  `emails` array<string>, 
+  `phones` array<string>, 
+  `brand` struct<names:struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,wikidata:string>, 
+  `addresses` array<struct<freeform:string,locality:string,postcode:string,region:string,country:string>>)
 PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
@@ -218,17 +217,16 @@ MSCK REPAIR TABLE `places`
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `transportation`(
-  `subtype` string,
-  `sourcetags` map<string,string>,
-  `road` string,
-  `updatetime` string,
-  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
-  `connectors` array<string>,
-  `version` int,
-  `id` string,
-  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
-  `geometry` binary,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+  `id` string, 
+  `geometry` binary, 
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>, 
+  `subtype` string, 
+  `version` int, 
+  `updatetime` string, 
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>, 
+  `level` int, 
+  `connectors` array<string>, 
+  `road` string)
 PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
