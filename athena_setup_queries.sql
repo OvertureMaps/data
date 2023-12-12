@@ -149,17 +149,28 @@ MSCK REPAIR TABLE `base`
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `buildings`(
-  `level` int,
-  `numfloors` int,
-  `class` string,
-  `sourcetags` map<string,string>,
-  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
-  `version` int,
-  `id` string,
-  `height` double,
-  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
-  `geometry` binary,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+  `id` string, 
+  `geometry` binary, 
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>, 
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>, 
+  `version` int, 
+  `updatetime` string, 
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>, 
+  `class` string, 
+  `hasparts` boolean, 
+  `height` double, 
+  `numfloors` int, 
+  `facadecolor` string, 
+  `facadematerial` string, 
+  `roofmaterial` string, 
+  `roofshape` string, 
+  `roofdirection` double, 
+  `rooforientation` string, 
+  `roofcolor` string, 
+  `eaveheight` double, 
+  `level` int, 
+  `minheight` double, 
+  `buildingid` string)
 PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
