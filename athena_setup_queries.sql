@@ -55,6 +55,14 @@ CREATE EXTERNAL TABLE `overture` (
   `level` int, 
   `minheight` double, 
   `buildingid` string, 
+  `categories` struct<main:string,alternate:array<string>>, 
+  `confidence` double, 
+  `websites` array<string>, 
+  `socials` array<string>, 
+  `emails` array<string>, 
+  `phones` array<string>, 
+  `brand` struct<names:struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,wikidata:string>, 
+  `addresses` array<struct<freeform:string,locality:string,postcode:string,region:string,country:string>>, 
   `connectors` array<string>, 
   `road` string)
 PARTITIONED BY ( 
