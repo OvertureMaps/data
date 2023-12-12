@@ -12,7 +12,9 @@
 --         so use Athena in us-west-2 for best performance.
 ------------------------------------------------------------------------
 
--- The October 2023 Release (and after) uses a unified schema for all themes. There's no need to create separate tables for each theme if you are only interested in the October 2023 Release data.
+-- Themes distributed since the October 2023 release are described using
+-- compatible schemas and may be viewed as part of a unified table,
+-- partitioned by `theme` and `type`.
 
 CREATE EXTERNAL TABLE `overture` (
   `id` string, 
