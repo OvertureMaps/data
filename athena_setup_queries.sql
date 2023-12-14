@@ -12,46 +12,59 @@
 --         so use Athena in us-west-2 for best performance.
 ------------------------------------------------------------------------
 
--- The October 2023 Release (and after) uses a unified schema for all themes. There's no need to create separate tables for each theme if you are only interested in the October 2023 Release data.
+-- Themes distributed since the October 2023 release are described using
+-- compatible schemas and may be viewed as part of a unified table,
+-- partitioned by `theme` and `type`.
 
 CREATE EXTERNAL TABLE `overture` (
-  `categories` struct<main:string,alternate:array<string>>,
-  `level` int,
-  `geopoldisplay` string,
-  `socials` array<string>,
+  `id` string,
+  `geometry` binary,
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>,
   `subtype` string,
-  `numfloors` int,
-  `class` string,
-  `sourcetags` map<string,string>,
-  `contextid` string,
   `localitytype` string,
-  `emails` array<string>,
-  `ismaritime` boolean,
-  `drivingside` string,
-  `localityid` string,
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
+  `contextid` string,
   `adminlevel` int,
-  `road` string,
   `isocountrycodealpha2` string,
   `isosubcountrycode` string,
-  `updatetime` string,
-  `wikidata` string,
-  `confidence` double,
   `defaultlanguage` string,
-  `brand` struct<names:struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,wikidata:string>,
-  `addresses` array<struct<freeform:string,locality:string,postCode:string,region:string,country:string>>,
-  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
-  `isintermittent` boolean,
-  `connectors` array<string>,
-  `surface` string,
+  `drivingside` string,
   `version` int,
-  `phones` array<string>,
-  `id` string,
-  `height` double,
+  `updatetime` string,
   `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
-  `websites` array<string>,
+  `ismaritime` boolean,
+  `geopoldisplay` string,
+  `localityid` string,
+  `class` string,
+  `sourcetags` map<string,string>,
+  `wikidata` string,
+  `surface` string,
   `issalt` boolean,
-  `geometry` binary,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+  `isintermittent` boolean,
+  `hasparts` boolean,
+  `height` double,
+  `numfloors` int,
+  `facadecolor` string,
+  `facadematerial` string,
+  `roofmaterial` string,
+  `roofshape` string,
+  `roofdirection` double,
+  `rooforientation` string,
+  `roofcolor` string,
+  `eaveheight` double,
+  `level` int,
+  `minheight` double,
+  `buildingid` string,
+  `categories` struct<main:string,alternate:array<string>>,
+  `confidence` double,
+  `websites` array<string>,
+  `socials` array<string>,
+  `emails` array<string>,
+  `phones` array<string>,
+  `brand` struct<names:struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,wikidata:string>,
+  `addresses` array<struct<freeform:string,locality:string,postcode:string,region:string,country:string>>,
+  `connectors` array<string>,
+  `road` string)
 PARTITIONED BY (
   `theme` string,
   `type` string)
@@ -73,25 +86,24 @@ MSCK REPAIR TABLE `overture`;
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `admins`(
-  `geopoldisplay` string,
+  `id` string,
+  `geometry` binary,
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>,
   `subtype` string,
-  `sourcetags` map<string,string>,
-  `contextid` string,
   `localitytype` string,
-  `ismaritime` boolean,
-  `drivingside` string,
-  `localityid` string,
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
+  `contextid` string,
   `adminlevel` int,
   `isocountrycodealpha2` string,
   `isosubcountrycode` string,
-  `updatetime` string,
   `defaultlanguage` string,
-  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
+  `drivingside` string,
   `version` int,
-  `id` string,
+  `updatetime` string,
   `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
-  `geometry` binary,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+  `ismaritime` boolean,
+  `geopoldisplay` string,
+  `localityid` string)
 PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
@@ -107,20 +119,20 @@ MSCK REPAIR TABLE `admins`
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `base`(
+  `id` string,
+  `geometry` binary,
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>,
   `subtype` string,
-  `class` string,
-  `sourcetags` map<string,string>,
-  `updatetime` string,
-  `wikidata` string,
-  `isintermittent` boolean,
-  `surface` string,
   `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
   `version` int,
-  `id` string,
+  `updatetime` string,
   `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
+  `class` string,
+  `sourcetags` map<string,string>,
+  `wikidata` string,
+  `surface` string,
   `issalt` boolean,
-  `geometry` binary,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+  `isintermittent` boolean)
 PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
@@ -136,17 +148,28 @@ MSCK REPAIR TABLE `base`
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `buildings`(
-  `level` int,
-  `numfloors` int,
-  `class` string,
-  `sourcetags` map<string,string>,
+  `id` string,
+  `geometry` binary,
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>,
   `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
   `version` int,
-  `id` string,
-  `height` double,
+  `updatetime` string,
   `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
-  `geometry` binary,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+  `class` string,
+  `hasparts` boolean,
+  `height` double,
+  `numfloors` int,
+  `facadecolor` string,
+  `facadematerial` string,
+  `roofmaterial` string,
+  `roofshape` string,
+  `roofdirection` double,
+  `rooforientation` string,
+  `roofcolor` string,
+  `eaveheight` double,
+  `level` int,
+  `minheight` double,
+  `buildingid` string)
 PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
@@ -163,21 +186,21 @@ MSCK REPAIR TABLE `buildings`
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `places`(
-  `categories` struct<main:string,alternate:array<string>>,
-  `socials` array<string>,
-  `sourcetags` map<string,string>,
-  `emails` array<string>,
-  `updatetime` string,
-  `confidence` double,
-  `brand` struct<names:struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,wikidata:string>,
-  `addresses` array<struct<freeform:string,locality:string,postCode:string,region:string,country:string>>,
-  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
-  `phones` array<string>,
   `id` string,
-  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
-  `websites` array<string>,
   `geometry` binary,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>,
+  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
+  `version` int,
+  `updatetime` string,
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
+  `categories` struct<main:string,alternate:array<string>>,
+  `confidence` double,
+  `websites` array<string>,
+  `socials` array<string>,
+  `emails` array<string>,
+  `phones` array<string>,
+  `brand` struct<names:struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,wikidata:string>,
+  `addresses` array<struct<freeform:string,locality:string,postcode:string,region:string,country:string>>)
 PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
@@ -194,17 +217,16 @@ MSCK REPAIR TABLE `places`
 -- =====================================================================
 
 CREATE EXTERNAL TABLE `transportation`(
-  `subtype` string,
-  `sourcetags` map<string,string>,
-  `road` string,
-  `updatetime` string,
-  `names` struct<common:array<struct<value:string,language:string>>,official:array<struct<value:string,language:string>>,alternate:array<struct<value:string,language:string>>,short:array<struct<value:string,language:string>>>,
-  `connectors` array<string>,
-  `version` int,
   `id` string,
-  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
   `geometry` binary,
-  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>)
+  `bbox` struct<minx:double,maxx:double,miny:double,maxy:double>,
+  `subtype` string,
+  `version` int,
+  `updatetime` string,
+  `sources` array<struct<property:string,dataset:string,recordId:string,confidence:double>>,
+  `level` int,
+  `connectors` array<string>,
+  `road` string)
 PARTITIONED BY (
   `type` string)
 STORED AS PARQUET
