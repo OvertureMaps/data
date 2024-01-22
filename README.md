@@ -70,13 +70,11 @@ have organized the data for the `Overture 2024-01-17-alpha.0` release by theme a
 The Parquet files match the [Overture Data Schema](https://docs.overturemaps.org/)
 for each theme with the following enhancements:
 
-1. The `id` column contains _temporary_ IDs that are not yet part of the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/gers/).
-   These IDs are not yet stable and are likely to change significantly up
-   to the point that GERS is released.
+1. The `id` column contains unique identifiers in the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/gers/) format.
 2. The `bbox` column is a `struct` with the following attributes:
    `minX`, `maxX`, `minY`, `maxY`. This column allows you to craft more
    efficient spatial queries when running SQL against the cloud.
-3. The `geometry` column is encoded as WKB.
+3. The `geometry` column is encoded as WKB (the files are geoparquet).
 
 ## Accessing Overture Maps Data
 You can access Overture Parquet data files directly from the cloud, or copy them
