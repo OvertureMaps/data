@@ -10,7 +10,7 @@ Accessing Overture Maps Data
 
 Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format.
 There is no single Overture "entire planet" file to be downloaded. Instead, we
-have organized the data for the `Overture 2024-01-17-alpha.0` release by theme and type at the following locations:
+have organized the data for the `Overture 2024-02-15-alpha.0` release by theme and type at the following locations:
 
 ### Data Location
 
@@ -23,8 +23,8 @@ have organized the data for the `Overture 2024-01-17-alpha.0` release by theme a
     <th>Admins</th>
     <td>
       <ul>
-        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-01-17-alpha.0/theme=admins</code></li>
-        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-01-17-alpha.0/theme=admins</code></li>
+        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-02-15-alpha.0/theme=admins</code></li>
+        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-02-15-alpha.0/theme=admins</code></li>
       </ul>
     </td>
   </tr>
@@ -32,8 +32,8 @@ have organized the data for the `Overture 2024-01-17-alpha.0` release by theme a
     <th>Buildings</th>
     <td>
       <ul>
-        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-01-17-alpha.0/theme=buildings</code></li>
-        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-01-17-alpha.0/theme=buildings</code></li>
+        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-02-15-alpha.0/theme=buildings</code></li>
+        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-02-15-alpha.0/theme=buildings</code></li>
       </ul>
     </td>
   </tr>
@@ -41,8 +41,8 @@ have organized the data for the `Overture 2024-01-17-alpha.0` release by theme a
     <th>Places</th>
     <td>
       <ul>
-        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-01-17-alpha.0/theme=places</code></li>
-        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-01-17-alpha.0/theme=places</code></li>
+        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-02-15-alpha.0/theme=places</code></li>
+        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-02-15-alpha.0/theme=places</code></li>
       </ul>
     </td>
   </tr>
@@ -50,8 +50,8 @@ have organized the data for the `Overture 2024-01-17-alpha.0` release by theme a
     <th>Transportation</th>
     <td>
       <ul>
-        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-01-17-alpha.0/theme=transportation</code></li>
-        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-01-17-alpha.0/theme=transportation</code></li>
+        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-02-15-alpha.0/theme=transportation</code></li>
+        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-02-15-alpha.0/theme=transportation</code></li>
       </ul>
     </td>
   </tr>
@@ -59,8 +59,8 @@ have organized the data for the `Overture 2024-01-17-alpha.0` release by theme a
     <th>Base</th>
     <td>
       <ul>
-        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-01-17-alpha.0/theme=base</code></li>
-        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-01-17-alpha.0/theme=base</code></li>
+        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-02-15-alpha.0/theme=base</code></li>
+        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-02-15-alpha.0/theme=base</code></li>
       </ul>
     </td>
   </tr>
@@ -117,7 +117,7 @@ Example SQL query to read places in Seattle:
 SELECT TOP 10 *
   FROM
        OPENROWSET(
-           BULK 'https://overturemapswestus2.blob.core.windows.net/release/2024-01-17-alpha.0/theme=places/type=place/',
+           BULK 'https://overturemapswestus2.blob.core.windows.net/release/2024-02-15-alpha.0/theme=places/type=place/',
            FORMAT = 'PARQUET'
        )
   WITH
@@ -152,7 +152,7 @@ for all `adminLevel=2` features, you could run:
 
 ```sql
 CREATE VIEW admins_view AS
-SELECT * FROM read_parquet('s3://overturemaps-us-west-2/release/2024-01-17-alpha.0/theme=admins/type=*/*', filename=true, hive_partitioning=1);
+SELECT * FROM read_parquet('s3://overturemaps-us-west-2/release/2024-02-15-alpha.0/theme=admins/type=*/*', filename=true, hive_partitioning=1);
 COPY (
     SELECT
             admins.id,
@@ -202,7 +202,7 @@ INSTALL azure;
 LOAD azure;
 SET azure_storage_connection_string = 'DefaultEndpointsProtocol=https;AccountName=overturemapswestus2;AccountKey=;EndpointSuffix=core.windows.net';
 ```
-Here is an example path to be passed to ```read_parquet``` method: ```azure://release/2024-01-17-alpha.0/theme=admins/type=*/*```
+Here is an example path to be passed to ```read_parquet``` method: ```azure://release/2024-02-15-alpha.0/theme=admins/type=*/*```
 <!-- #### Jupyter Notebooks + DuckDB
 
 **TODO: Link below doesn't exist yet. 👇**
@@ -221,7 +221,7 @@ from sedona.spark import *
 config = SedonaContext.builder().config("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider").getOrCreate()
 sedona = SedonaContext.create(config)
 
-df = sedona.read.format("geoparquet").load("s3a://overturemaps-us-west-2/release/2024-01-17-alpha.0/theme=places/type=place")
+df = sedona.read.format("geoparquet").load("s3a://overturemaps-us-west-2/release/2024-02-15-alpha.0/theme=places/type=place")
 df.filter("ST_Contains(ST_GeomFromWKT('POLYGON((-122.48 47.43,-122.20 47.75,-121.92 47.37,-122.48 47.43))'), geometry) = true").show()
 ```
 
@@ -236,7 +236,7 @@ you can download the files from S3 using the below command. Set `<DESTINATION>` 
 download the files, or to an `s3://` path you control to copy them into your S3 bucket.
 
 ```bash
-aws s3 cp --region us-west-2 --no-sign-request --recursive s3://overturemaps-us-west-2/release/2024-01-17-alpha.0/ <DESTINATION>
+aws s3 cp --region us-west-2 --no-sign-request --recursive s3://overturemaps-us-west-2/release/2024-02-15-alpha.0/ <DESTINATION>
 ```
 
 The total size of all of the files is a little over 200 GB.
@@ -247,7 +247,7 @@ or the [AzCopy](https://learn.microsoft.com/en-us/azure/storage/common/storage-u
 command. An example `azcopy` command is given below.
 
 ```bash
-azcopy copy "https://overturemapswestus2.dfs.core.windows.net/release/2024-01-17-alpha.0/" "<<local directory path>>"  --recursive```
+azcopy copy "https://overturemapswestus2.dfs.core.windows.net/release/2024-02-15-alpha.0/" "<<local directory path>>"  --recursive```
 ```
 
 
