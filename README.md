@@ -170,7 +170,7 @@ COPY (
             geometry AS areaGeometry
         FROM admins_view
     ) AS areas ON areas.localityId == admins.id
-    WHERE admins.adminLevel = 2
+    WHERE admins.adminLevel = 1
 ) TO 'countries.geojson'
 WITH (FORMAT GDAL, DRIVER 'GeoJSON');
 ```
