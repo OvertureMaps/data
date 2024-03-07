@@ -156,21 +156,21 @@ SELECT * FROM read_parquet('s3://overturemaps-us-west-2/release/2024-02-15-alpha
 COPY (
     SELECT
             admins.id,
-            admins.subType,
-            admins.isoCountryCodeAlpha2,
+            admins.sub_type,
+            admins.iso_country_code_alpha_2,
             JSON(admins.names) AS names,
             JSON(admins.sources) AS sources,
-            areas.areaId,
-            ST_GeomFromWKB(areas.areaGeometry) as geometry
+            areas.area_id,
+            ST_GeomFromWKB(areas.area_geometry) as geometry
     FROM admins_view AS admins
     INNER JOIN (
         SELECT 
             id as areaId, 
-            localityId, 
-            geometry AS areaGeometry
+            locality_id, 
+            geometry AS area_geometry
         FROM admins_view
-    ) AS areas ON areas.localityId == admins.id
-    WHERE admins.adminLevel = 2
+    ) AS areas ON areas.locality_id == admins.id
+    WHERE admins.admin_level = 2
 ) TO 'countries.geojson'
 WITH (FORMAT GDAL, DRIVER 'GeoJSON');
 ```
