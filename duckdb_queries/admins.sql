@@ -7,7 +7,7 @@ SELECT * FROM read_parquet('s3://overturemaps-us-west-2/release/<release-version
 COPY (
     SELECT
             admins.id,
-            admins.sub_type,
+            admins.subtype,
             admins.iso_country_code_alpha_2,
             JSON(admins.names) AS names,
             JSON(admins.sources) AS sources,
