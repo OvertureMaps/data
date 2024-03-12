@@ -5,9 +5,9 @@ COPY (
     SELECT
         type,
         version,
-        CAST(updatetime as varchar) as updateTime,
+        CAST(update_time as varchar) as update_time,
         height,
-        numfloors as numFloors,
+        num_floors,
         level,
         class,
         JSON(names) as names,

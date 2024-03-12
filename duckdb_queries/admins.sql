@@ -7,21 +7,21 @@ SELECT * FROM read_parquet('s3://overturemaps-us-west-2/release/<release-version
 COPY (
     SELECT
             admins.id,
-            admins.subType,
-            admins.isoCountryCodeAlpha2,
+            admins.subtype,
+            admins.iso_country_code_alpha_2,
             JSON(admins.names) AS names,
             JSON(admins.sources) AS sources,
-            areas.areaId,
-            ST_GeomFromWKB(areas.areaGeometry) as geometry
+            areas.area_id,
+            ST_GeomFromWKB(areas.area_geometry) as geometry
     FROM admins_view AS admins
     INNER JOIN (
         SELECT 
-            id as areaId, 
-            localityId, 
-            geometry AS areaGeometry
+            id as area_id, 
+            locality_id, 
+            geometry AS area_geometry
         FROM admins_view
-    ) AS areas ON areas.localityId == admins.id
-    WHERE admins.adminLevel = 2
+    ) AS areas ON areas.locality_id == admins.id
+    WHERE admins.admin_level = 2
     LIMIT 10    
 ) TO 'admins_sample.geojsonseq'
 WITH (FORMAT GDAL, DRIVER 'GeoJSON');
