@@ -83,26 +83,6 @@ fetch the data directly from the cloud using one of the SQL query options.
 
 ### [See instructions on our how-to pages (labs.overturemaps.org/how-to/)](https://labs.overturemaps.org/how-to/accessing-data/)
 
-
-### 4. Apache Sedona (Python + Spatial SQL)
-
-You can get a single-node Sedona Docker image from [Apache Software Foundation DockerHub](https://hub.docker.com/r/apache/sedona) and run `docker run -p 8888:8888 apache/sedona:latest`. A Jupyter Lab and notebook examples will be available at http://localhost:8888/. You can also install Sedona to Databricks, AWS EMR and Snowflake using [Wherobots](https://www.wherobots.ai/demo).
-
-The following Python + Spatial SQL code reads the Places dataset and runs a spatial filter query on it.
-
-```
-from sedona.spark import *
-
-config = SedonaContext.builder().config("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider").getOrCreate()
-sedona = SedonaContext.create(config)
-
-df = sedona.read.format("geoparquet").load("s3a://overturemaps-us-west-2/release/2024-03-12-alpha.0/theme=places/type=place")
-df.filter("ST_Contains(ST_GeomFromWKT('POLYGON((-122.48 47.43,-122.20 47.75,-121.92 47.37,-122.48 47.43))'), geometry) = true").show()
-```
-
-For more examples from wherobots, check out their Overture-related [Notebook examples](https://github.com/wherobots/OvertureMaps).
----
-
 Data Release Feedback
 ---
 We are very interested in feedback on the Overture data. Please use the [Discussion](https://github.com/OvertureMaps/data/discussions) section of this repo to comment. Tagging it with the relevant theme name (Places, Transportation) will help direct your ideas.
