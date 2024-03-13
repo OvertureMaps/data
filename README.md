@@ -1,70 +1,37 @@
 Welcome to the Overture Maps Data Repo
 ===
-This repository includes instructions and sample queries to access Overture Maps Data.
 
-We also welcome feedback about Overture Maps data in the [Discussions](https://github.com/OvertureMaps/data/discussions/new/choose). Feedback on the data *schema*, is best provided in the [discussions in the *schema* repository](https://github.com/OvertureMaps/schema/discussions).
+### Read the complete instructions on accessing Overture data in **[our how-to pages](https://labs.overturemaps.org/how-to/accessing-data/)**. 
+
+We welcome feedback about Overture Maps data in the [Discussions](https://github.com/OvertureMaps/data/discussions/new/choose). Feedback on the data *schema*, is best provided in the [discussions in the *schema* repository](https://github.com/OvertureMaps/schema/discussions).
 
 
-Accessing Overture Maps Data
+Overture Maps Data
 ---
-
 Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format.
-There is no single Overture "entire planet" file to be downloaded. Instead, we
-have organized the data for the `Overture 2024-03-12-alpha.0` release by theme and type at the following locations:
+There is no single Overture "entire planet" file to be downloaded. Instead, the data is partitioned by both `theme` and `type` and made available on Amazon S3 and Microsoft Azure Blob Storage. Read more about Overture themes at [docs.overturemaps.org](https://docs.overturemaps.org)
 
-### Data Location
+The latest release, `Overture 2024-03-12-alpha.0`, is available at the following locations: 
 
-<table>
-  <tr>
-    <th>Theme</th>
-    <th>Location</th>
-  </tr>
-  <tr>
-    <th>Admins</th>
-    <td>
-      <ul>
-        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-03-12-alpha.0/theme=admins</code></li>
-        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-03-12-alpha.0/theme=admins</code></li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <th>Buildings</th>
-    <td>
-      <ul>
-        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-03-12-alpha.0/theme=buildings</code></li>
-        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-03-12-alpha.0/theme=buildings</code></li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <th>Places</th>
-    <td>
-      <ul>
-        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-03-12-alpha.0/theme=places</code></li>
-        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-03-12-alpha.0/theme=places</code></li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <th>Transportation</th>
-    <td>
-      <ul>
-        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-03-12-alpha.0/theme=transportation</code></li>
-        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-03-12-alpha.0/theme=transportation</code></li>
-      </ul>
-    </td>
-  </tr>
-    <tr>
-    <th>Base</th>
-    <td>
-      <ul>
-        <li>Amazon S3: <code>s3://overturemaps-us-west-2/release/2024-03-12-alpha.0/theme=base</code></li>
-        <li>Microsoft Azure: <code>https://overturemapswestus2.blob.core.windows.net/release/2024-03-12-alpha.0/theme=base</code></li>
-      </ul>
-    </td>
-  </tr>
-</table>
+#### Amazon S3 
+```
+s3://overturemaps-us-west-2/release/2024-03-12-alpha.0/
+  |-- theme=admins/
+  |-- theme=base/
+  |-- theme=buildings/
+  |-- theme=places/
+  |-- theme=transportation/
+```
+
+#### Microsft Azure
+```
+https://overturemapswestus2.blob.core.windows.net/release/2024-03-12-alpha.0/
+ |- theme=admins
+ |- theme=base
+ |- theme=buildings
+ |- theme=places
+ |- theme=transportation
+```
 
 ### Parquet Schema
 The Parquet files match the [Overture Data Schema](https://docs.overturemaps.org/)
@@ -76,12 +43,6 @@ for each theme with the following enhancements:
    efficient spatial queries when running SQL against the cloud.
 3. The `geometry` column is encoded as WKB (the files are geoparquet).
 
-## Accessing Overture Maps Data
-You can access Overture Parquet data files directly from the cloud, or copy them
-to your preferred destination, or download them locally. We do encourage you to
-fetch the data directly from the cloud using one of the SQL query options. 
-
-### [See instructions on our how-to pages (labs.overturemaps.org/how-to/)](https://labs.overturemaps.org/how-to/accessing-data/)
 
 Data Release Feedback
 ---
