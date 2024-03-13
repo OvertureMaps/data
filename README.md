@@ -1,7 +1,7 @@
 Welcome to the Overture Maps Data Repo
 ===
 
-### Read the complete instructions on accessing Overture data in **[our how-to pages](https://labs.overturemaps.org/how-to/accessing-data/)**. 
+### See complete instructions on accessing Overture data in **[our how-to pages](https://labs.overturemaps.org/how-to/accessing-data/)**. 
 
 We welcome feedback about Overture Maps data in the [Discussions](https://github.com/OvertureMaps/data/discussions/new/choose). Feedback on the data *schema*, is best provided in the [discussions in the *schema* repository](https://github.com/OvertureMaps/schema/discussions).
 
