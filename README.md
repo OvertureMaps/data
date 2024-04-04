@@ -1,7 +1,7 @@
 Welcome to the Overture Maps Data Repo
 ===
 
-### See complete instructions on accessing Overture data in **[our how-to pages](https://labs.overturemaps.org/how-to/accessing-data/)**. 
+### See complete instructions on accessing Overture data in our documentation at [docs.overturemaps.org](https://docs.overturemaps.org/). 
 
 We welcome feedback about Overture Maps data in the [Discussions](https://github.com/OvertureMaps/data/discussions/new/choose). Feedback on the data *schema*, is best provided in the [discussions in the *schema* repository](https://github.com/OvertureMaps/schema/discussions).
 
@@ -9,7 +9,7 @@ We welcome feedback about Overture Maps data in the [Discussions](https://github
 Overture Maps Data
 ---
 Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format.
-There is no single Overture "entire planet" file to be downloaded. Instead, the data is partitioned by both `theme` and `type` and made available on Amazon S3 and Microsoft Azure Blob Storage. Read more about Overture themes at [docs.overturemaps.org](https://docs.overturemaps.org)
+There is no single Overture "entire planet" file to be downloaded. Instead, the data is partitioned by both `theme` and `type` and made available on Amazon S3 and Microsoft Azure Blob Storage. Read more about Overture themes at [schema.overturemaps.org](https://schema.overturemaps.org)
 
 The latest release, `Overture 2024-03-12-alpha.0`, is available at the following locations: 
 
