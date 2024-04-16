@@ -19,6 +19,7 @@ s3://overturemaps-us-west-2/release/2024-04-16-beta.0/
   |-- theme=admins/
   |-- theme=base/
   |-- theme=buildings/
+  |-- theme=divisions/
   |-- theme=places/
   |-- theme=transportation/
 ```
@@ -29,6 +30,7 @@ https://overturemapswestus2.blob.core.windows.net/release/2024-04-16-beta.0/
  |- theme=admins
  |- theme=base
  |- theme=buildings
+ |- theme=divisions
  |- theme=places
  |- theme=transportation
 ```
