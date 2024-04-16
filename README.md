@@ -11,11 +11,11 @@ Overture Maps Data
 Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format.
 There is no single Overture "entire planet" file to be downloaded. Instead, the data is partitioned by both `theme` and `type` and made available on Amazon S3 and Microsoft Azure Blob Storage. Read more about Overture themes at [docs.overturemaps.org/schema](https://docs.overturemaps.org/schema/)
 
-The latest release, `Overture 2024-03-12-alpha.0`, is available at the following locations: 
+The latest release, `Overture 2024-04-16-beta.0`, is available at the following locations: 
 
 #### Amazon S3 
 ```
-s3://overturemaps-us-west-2/release/2024-03-12-alpha.0/
+s3://overturemaps-us-west-2/release/2024-04-16-beta.0/
   |-- theme=admins/
   |-- theme=base/
   |-- theme=buildings/
@@ -25,7 +25,7 @@ s3://overturemaps-us-west-2/release/2024-03-12-alpha.0/
 
 #### Microsft Azure
 ```
-https://overturemapswestus2.blob.core.windows.net/release/2024-03-12-alpha.0/
+https://overturemapswestus2.blob.core.windows.net/release/2024-04-16-beta.0/
  |- theme=admins
  |- theme=base
  |- theme=buildings
@@ -39,7 +39,7 @@ for each theme with the following enhancements:
 
 1. The `id` column contains unique identifiers in the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/gers/) format.
 2. The `bbox` column is a `struct` with the following attributes:
-   `minX`, `maxX`, `minY`, `maxY`. This column allows you to craft more
+   `xmin`, `xmax`, `ymin`, `ymax`. This column allows you to craft more
    efficient spatial queries when running SQL against the cloud.
 3. The `geometry` column is encoded as WKB (the files are geoparquet).
 
@@ -57,6 +57,7 @@ We are very interested in feedback on the Overture data. Please use the [Discuss
    - Transportation
    - Places
    - Buildings
+   - Base
 
 **Discussion outline**
 1. Add a title
