@@ -1,0 +1,28 @@
+title: "[Buildings] "
+labels: ["Buildings"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Category Feedback
+      description: 
+      placeholder: Tell us what you see
+      value: "Add details \n - Expected behaviour you didn't see \n - Unexpected behaviour \n - suggested functionality \n - Steps to reproduce the problem"
+    validations:
+      required: true
+  - type: dropdown
+    id: TF-Groups
+    attributes:
+      label: Dependency with other categories, if any.
+      multiple: true
+      options:
+        - No Dependency
+        - Admin
+        - Address
+        - Base
+        - Data Platform
+        - Dev Advocacy
+        - GERs
+        - Schema
+        - Transportation
+        ### Thanks for your submission 
