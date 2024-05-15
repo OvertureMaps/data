@@ -1,0 +1,28 @@
+title: "[address-Feedback] "
+labels: ["addresses"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Outline Action Item Details
+      description: 
+      placeholder: Tell us what you see
+      value: "Add details"
+    validations:
+      required: true
+  - type: dropdown
+    id: TF-Groups
+    attributes:
+      label: Dependency with other Categories
+      multiple: true
+      options:
+        - No Dependency
+        - Admin
+        - Address
+        - Base
+        - Data Platform
+        - Dev Advocacy
+        - GERs
+        - Schema
+        - Transportation
+        ### Thanks for your submission 
