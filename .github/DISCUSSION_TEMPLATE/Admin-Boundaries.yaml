@@ -1,5 +1,5 @@
 title: "[admin-boundaries-Feedback] "
-labels: ["admin"]
+labels: ["Admin"]
 body:
   - type: textarea
     id: what-happened
