@@ -4,7 +4,7 @@ body:
   - type: textarea
     id: what-happened
     attributes:
-      label: Outline Action Item Details
+      label: Category Feedback
       description: 
       placeholder: Tell us what you see
       value: "Add details"
