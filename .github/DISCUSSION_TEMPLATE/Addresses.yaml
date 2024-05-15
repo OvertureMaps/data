@@ -7,7 +7,7 @@ body:
       label: Category Feedback
       description: 
       placeholder: Tell us what you see
-      value: "Add details \n Suggested headers \n Expected behaviour you didn't see \n Unexpected behaviour \n Steps to reproduce the problem"
+      value: "Add details \n - Expected behaviour you didn't see \n - Unexpected behaviour \n - Steps to reproduce the problem"
     validations:
       required: true
   - type: dropdown
