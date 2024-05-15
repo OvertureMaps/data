@@ -8,10 +8,10 @@ body:
       description: 
       placeholder: Tell us what you see
       value: "Add details"
-      Suggested headers
-      - Expected behaviour you didn't see
-      - Unexpected behaviour
-      - Steps to reproduce the problem
+      Suggested headers \n
+      Expected behaviour you didn't see \n
+      Unexpected behaviour \n
+      Steps to reproduce the problem \n
     validations:
       required: true
   - type: dropdown
