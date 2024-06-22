@@ -11,11 +11,11 @@ Overture Maps Data
 Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format.
 There is no single Overture "entire planet" file to be downloaded. Instead, the data is partitioned by both `theme` and `type` and made available on Amazon S3 and Microsoft Azure Blob Storage. Read more about Overture themes at [docs.overturemaps.org/schema](https://docs.overturemaps.org/schema/)
 
-The latest release, `Overture 2024-06-13-beta.0`, is available at the following locations: 
+The latest release, `Overture 2024-06-13-beta.1`, is available at the following locations: 
 
 #### Amazon S3 
 ```
-s3://overturemaps-us-west-2/release/2024-06-13-beta.0/
+s3://overturemaps-us-west-2/release/2024-06-13-beta.1/
   |-- theme=admins/
   |-- theme=base/
   |-- theme=buildings/
@@ -26,7 +26,7 @@ s3://overturemaps-us-west-2/release/2024-06-13-beta.0/
 
 #### Microsft Azure
 ```
-https://overturemapswestus2.blob.core.windows.net/release/2024-06-13-beta.0/
+https://overturemapswestus2.blob.core.windows.net/release/2024-06-13-beta.1/
  |- theme=admins
  |- theme=base
  |- theme=buildings
