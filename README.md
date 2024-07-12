@@ -39,7 +39,7 @@ https://overturemapswestus2.blob.core.windows.net/release/2024-06-13-beta.1/
 The Parquet files match the [Overture Data Schema](https://docs.overturemaps.org/schema/)
 for each theme with the following enhancements:
 
-1. The `id` column contains unique identifiers in the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/guides/gers/) format.
+1. The `id` column contains unique identifiers in the [Global Entity Reference System (GERS)](https://docs.overturemaps.org/gers/) format.
 2. The `bbox` column is a `struct` with the following attributes:
    `xmin`, `xmax`, `ymin`, `ymax`. This column allows you to craft more
    efficient spatial queries when running SQL against the cloud.
