@@ -16,7 +16,7 @@ The latest release, `Overture 2024-08-20.0`, is available at the following locat
 #### Amazon S3 
 ```
 s3://overturemaps-us-west-2/release/2024-08-20.0/
-  |-- theme=admins/
+  |-- theme=addresses/
   |-- theme=base/
   |-- theme=buildings/
   |-- theme=divisions/
@@ -27,7 +27,7 @@ s3://overturemaps-us-west-2/release/2024-08-20.0/
 #### Microsft Azure
 ```
 https://overturemapswestus2.blob.core.windows.net/release/2024-08-20.0/
- |- theme=admins
+ |- theme=addresses
  |- theme=base
  |- theme=buildings
  |- theme=divisions
