@@ -11,11 +11,11 @@ Overture Maps Data
 Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format.
 There is no single Overture "entire planet" file to be downloaded. Instead, the data is partitioned by both `theme` and `type` and made available on Amazon S3 and Microsoft Azure Blob Storage. Read more about Overture themes at [docs.overturemaps.org/schema](https://docs.overturemaps.org/schema/)
 
-The latest release, `Overture 2024-08-20.0`, is available at the following locations: 
+The latest data release, `2024-09-18.0`, is available at the following locations: 
 
 #### Amazon S3 
 ```
-s3://overturemaps-us-west-2/release/2024-08-20.0/
+s3://overturemaps-us-west-2/release/__OVERTURE_RELEASE/
   |-- theme=addresses/
   |-- theme=base/
   |-- theme=buildings/
@@ -26,7 +26,7 @@ s3://overturemaps-us-west-2/release/2024-08-20.0/
 
 #### Microsft Azure
 ```
-https://overturemapswestus2.blob.core.windows.net/release/2024-08-20.0/
+https://overturemapswestus2.blob.core.windows.net/release/__OVERTURE_RELEASE/
  |- theme=addresses
  |- theme=base
  |- theme=buildings
@@ -48,23 +48,4 @@ for each theme with the following enhancements:
 
 Data Release Feedback
 ---
-We are very interested in feedback on the Overture data. Please use the [Discussion](https://github.com/OvertureMaps/data/discussions) section of this repo to comment. Tagging it with the relevant theme name (Places, Transportation) will help direct your ideas.
-
-### Submissions
-
-**Category selection**
-1. Click [HERE](https://github.com/OvertureMaps/data/discussions/new/choose) to submit your feedback
-2. Select the layer discussion category
-   - Administration Boundaries
-   - Transportation
-   - Places
-   - Buildings
-   - Base
-
-**Discussion outline**
-1. Add a title
-2. Outline your feedback with as much detail as possible
-3. Click [Start Discussion]
-
-### OMF Review
-The associated Task Force will carefully review each submission and offer feedback where required.
+We are very interested in feedback on the Overture data. Please use the [Discussion](https://github.com/OvertureMaps/data/discussions) section of this repo to comment. Tagging it with the release and relevant theme name (Places, Transportation) will help direct your ideas. Please include as much detail as possible. The associated Task Force will carefully review each submission and offer feedback where required.
