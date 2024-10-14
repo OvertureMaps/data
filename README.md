@@ -9,9 +9,9 @@ We welcome feedback about Overture Maps data in the [Discussions](https://github
 Overture Maps Data
 ---
 Overture Maps data is available in cloud-native [Parquet](https://parquet.apache.org/docs/) format.
-There is no single Overture "entire planet" file to be downloaded. Instead, the data is partitioned by both `theme` and `type` and made available on Amazon S3 and Microsoft Azure Blob Storage. Read more about Overture themes at [docs.overturemaps.org/schema](https://docs.overturemaps.org/schema/)
+There is no single Overture "entire planet" file to download. Instead, the data is partitioned by both `theme` and `type` and made available on Amazon S3 and Microsoft Azure Blob Storage. Read more about Overture data and schema at [docs.overturemaps.org](https://docs.overturemaps.org)
 
-The latest data release, `2024-09-18.0`, is available at the following locations: 
+The latest data release is available at the following locations: 
 
 #### Amazon S3 
 ```
