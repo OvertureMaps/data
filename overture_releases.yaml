@@ -1,3 +1,5 @@
+- schema: "1.6.0"
+  release: "2025-02-19.0"
 - schema: "1.5.0"
   release: "2025-01-22.0"
 - schema: "1.4.0"
