@@ -4,8 +4,8 @@ import json
 
 import duckdb
 
-REGISTRY_PATH = "s3://overturemaps-us-west-2/registry/*.parquet"
-RELEASE_PATH = "s3://overturemaps-us-west-2/release/2025-06-25.0/"
+REGISTRY_PATH = "s3://overturemaps-us-west-2/registry/2025-06-25.0/*.parquet"
+RELEASE_PATH = "s3://overturemaps-us-west-2/release/2025-06-25.0"
 
 
 class RegistryQuery:
