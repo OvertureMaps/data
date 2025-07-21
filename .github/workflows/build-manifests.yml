@@ -15,11 +15,9 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   # Single deploy job since we're just deploying
@@ -47,11 +45,13 @@ jobs:
         run: |
           cd utils
           python3 fetch-releases-from-s3.py
+          python3 simple-registry-manifest.py
 
       - name: Copy output to publish directory
         run: |
           mkdir publish
           cp utils/releases.json publish/
+          cp utils/registry-manifest.json publish/
           cp utils/latest.dbb publish/
           cp overture_releases.yaml publish/
 
