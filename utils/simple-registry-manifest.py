@@ -3,7 +3,6 @@ import logging
 
 import pyarrow.dataset as ds
 import pyarrow.fs as fs
-import pyarrow.parquet as pq
 
 # Set up logging
 logging.basicConfig()

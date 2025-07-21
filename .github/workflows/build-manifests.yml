@@ -46,6 +46,7 @@ jobs:
           cd utils
           python3 fetch-releases-from-s3.py
           python3 simple-registry-manifest.py
+          python3 create-download-manifest-for-explore-site.py
 
       - name: Copy output to publish directory
         run: |
@@ -54,6 +55,7 @@ jobs:
           cp utils/registry-manifest.json publish/
           cp utils/latest.dbb publish/
           cp overture_releases.yaml publish/
+          cp explore-site-download-manifest.json publish/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
