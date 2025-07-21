@@ -1,23 +1,20 @@
-import boto3, duckdb, json
-from botocore import UNSIGNED
-from botocore.config import Config
+import duckdb, json
+from obstore.store import S3Store
 
-s3 = boto3.client("s3", config=Config(signature_version=UNSIGNED))
+store = S3Store("overturemaps-us-west-2", region="us-west-2", skip_signature=True)
 
-contents = s3.list_objects_v2(
-    Bucket="overturemaps-us-west-2", Delimiter="/", Prefix="release/"
-)
+releases = store.list_with_delimiter("release/")
 
 output = {}
 
-for idx, release in enumerate(
-    sorted(contents.get("CommonPrefixes"), key=lambda x: x.get("Prefix"), reverse=True)
-):
-    path = release.get("Prefix").split("/")[1]
+for idx, release in enumerate(sorted(releases.get("common_prefixes"), reverse=True)):
+    path = release.split("/")[1]
     if idx == 0:
         output["latest"] = path
         output["releases"] = []
     output["releases"].append(path)
+
+    print(f" - {path}")
 
 with open("releases.json", "w") as output_file:
     output_file.write(json.dumps(output, indent=4))
