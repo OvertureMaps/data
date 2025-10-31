@@ -19,7 +19,7 @@ for idx, release in enumerate(sorted(releases.get("common_prefixes"), reverse=Tr
 with open("releases.json", "w") as output_file:
     output_file.write(json.dumps(output, indent=4))
 
-conn = duckdb.connect("latest.dbb")
+conn = duckdb.connect("latest.ddb")
 
 conn.sql(
     f"""
