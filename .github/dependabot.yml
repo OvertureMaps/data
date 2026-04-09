@@ -13,3 +13,5 @@ updates:
     commit-message:
       prefix: "[CHORE](deps)"
       include: "scope"
+    cooldown:
+      default-days: 7
