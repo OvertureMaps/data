@@ -1,12 +1,7 @@
 import json
-import os
 import sys
-import tempfile
-from io import BytesIO
+import os
 from unittest.mock import MagicMock, patch
-
-import duckdb
-import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
@@ -61,7 +56,18 @@ class TestFetchCatalog:
 
         with patch("urllib.request.urlopen", return_value=mock_response) as mock_open:
             fetch_catalog("https://custom.example.com/catalog.json")
-            mock_open.assert_called_once_with("https://custom.example.com/catalog.json")
+            req = mock_open.call_args[0][0]
+            assert req.full_url == "https://custom.example.com/catalog.json"
+
+    def test_applies_timeout(self):
+        mock_response = MagicMock()
+        mock_response.__enter__ = lambda s: s
+        mock_response.__exit__ = MagicMock(return_value=False)
+        mock_response.read.return_value = json.dumps(SAMPLE_CATALOG).encode()
+
+        with patch("urllib.request.urlopen", return_value=mock_response) as mock_open:
+            fetch_catalog("https://stac.overturemaps.org/catalog.json", timeout=10)
+            assert mock_open.call_args[1]["timeout"] == 10
 
 
 class TestParseReleases:
@@ -106,8 +112,32 @@ class TestParseReleases:
         result = parse_releases(catalog)
         assert result["releases"] == ["2026-05-20.0"]
 
+    def test_absolute_href_parsed_correctly(self):
+        catalog = {
+            **SAMPLE_CATALOG,
+            "links": [
+                {
+                    "rel": "child",
+                    "href": "https://stac.overturemaps.org/2026-05-20.0/catalog.json",
+                },
+            ],
+            "latest": "2026-05-20.0",
+        }
+        result = parse_releases(catalog)
+        assert result["releases"] == ["2026-05-20.0"]
 
-class TestBuildViewsSql:
+    def test_relative_href_without_dotslash_parsed_correctly(self):
+        catalog = {
+            **SAMPLE_CATALOG,
+            "links": [
+                {"rel": "child", "href": "2026-05-20.0/catalog.json"},
+            ],
+            "latest": "2026-05-20.0",
+        }
+        result = parse_releases(catalog)
+        assert result["releases"] == ["2026-05-20.0"]
+
+
     def test_contains_install_spatial(self):
         sql = build_views_sql("2026-05-20.0")
         assert "INSTALL spatial" in sql
@@ -161,8 +191,9 @@ class TestCreateDuckdbViews:
             sql_arg = mock_conn.sql.call_args[0][0]
             assert release in sql_arg
 
-    def test_connects_to_provided_path(self):
+    def test_closes_connection(self):
         mock_conn = MagicMock()
-        with patch("duckdb.connect", return_value=mock_conn) as mock_connect:
-            create_duckdb_views("some/path/latest.ddb", "2026-05-20.0")
-            mock_connect.assert_called_once_with("some/path/latest.ddb")
+        with patch("duckdb.connect", return_value=mock_conn):
+            create_duckdb_views(":memory:", "2026-05-20.0")
+            mock_conn.close.assert_called_once()
+

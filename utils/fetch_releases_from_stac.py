@@ -1,10 +1,12 @@
 import json
 import urllib.request
+from urllib.parse import urlparse
 
 import duckdb
 
 STAC_CATALOG = "https://stac.overturemaps.org/catalog.json"
 S3_BASE = "s3://overturemaps-us-west-2/release"
+_USER_AGENT = "overturemaps-data/1.0"
 
 VIEWS = [
     ("address", "addresses", "address"),
@@ -25,16 +27,22 @@ VIEWS = [
 ]
 
 
-def fetch_catalog(url: str) -> dict:
-    with urllib.request.urlopen(url) as response:
+def fetch_catalog(url: str, timeout: int = 30) -> dict:
+    req = urllib.request.Request(url, headers={"User-Agent": _USER_AGENT})
+    with urllib.request.urlopen(req, timeout=timeout) as response:
         return json.loads(response.read())
+
+
+def _release_id_from_href(href: str) -> str:
+    parts = [p for p in urlparse(href).path.split("/") if p and p != "."]
+    return parts[0]
 
 
 def parse_releases(catalog: dict) -> dict:
     latest = catalog["latest"]
     releases = sorted(
         [
-            link["href"].split("/")[1]
+            _release_id_from_href(link["href"])
             for link in catalog["links"]
             if link["rel"] == "child"
         ],
@@ -56,7 +64,10 @@ def build_views_sql(latest: str, s3_base: str = S3_BASE) -> str:
 
 def create_duckdb_views(db_path: str, latest: str, s3_base: str = S3_BASE) -> None:
     conn = duckdb.connect(db_path)
-    conn.sql(build_views_sql(latest, s3_base))
+    try:
+        conn.sql(build_views_sql(latest, s3_base))
+    finally:
+        conn.close()
 
 
 def main():
