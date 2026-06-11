@@ -1,4 +1,4 @@
-name: Fetch releases from S3
+name: Build and publish releases artifacts
 
 on:
   push:
@@ -33,10 +33,10 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up Python 3.11
+      - name: Set up Python 3.12
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
@@ -44,15 +44,16 @@ jobs:
           cd utils
           pip install -r requirements.txt
 
-      - name: Build releases.json and latest.dbb
+      - name: Build releases.json and latest.ddb
         run: |
           cd utils
-          python3 fetch-releases-from-s3.py
+          python3 fetch_releases_from_stac.py
           python3 simple-registry-manifest.py
 
       - name: Copy output to publish directory
         run: |
           mkdir publish
+          cp index.html publish/
           cp utils/releases.json publish/
           cp utils/registry-manifest.json publish/
           cp utils/latest.ddb publish/
