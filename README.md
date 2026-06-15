@@ -54,4 +54,4 @@ Release Discovery
 ---
 Use the [Overture STAC catalog](https://stac.overturemaps.org/catalog.json) (SpatioTemporal Asset Catalog) for authoritative release discovery.
 
-> **Deprecated:** `overture_releases.yaml` and `releases.json` are no longer maintained and will be removed in a future release. Use the STAC catalog instead.
+> **Deprecated:** `overture_releases.yaml`, `releases.json`, and `registry-manifest.json` (previously at `labs.overturemaps.org/data/`) are no longer maintained and will be removed in a future release. Use the STAC catalog instead.
