@@ -57,7 +57,6 @@ jobs:
           cp utils/releases.json publish/
           cp utils/registry-manifest.json publish/
           cp utils/latest.ddb publish/
-          cp utils/latest.ddb publish/latest.dbb
           cp overture_releases.yaml publish/
 
       - name: Setup Pages
