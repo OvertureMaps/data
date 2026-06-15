@@ -52,6 +52,7 @@ jobs:
       - name: Copy output to publish directory
         run: |
           mkdir publish
+          cp 404.html publish/
           cp utils/releases.json publish/
           cp utils/latest.ddb publish/
           cp overture_releases.yaml publish/
