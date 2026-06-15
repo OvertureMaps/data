@@ -1,2 +1,1 @@
 duckdb==1.3.2
-pyarrow>=20.0.0

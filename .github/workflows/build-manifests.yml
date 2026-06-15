@@ -48,13 +48,11 @@ jobs:
         run: |
           cd utils
           python3 fetch_releases_from_stac.py
-          python3 simple-registry-manifest.py
 
       - name: Copy output to publish directory
         run: |
           mkdir publish
           cp utils/releases.json publish/
-          cp utils/registry-manifest.json publish/
           cp utils/latest.ddb publish/
           cp overture_releases.yaml publish/
 
