@@ -49,3 +49,9 @@ for each theme with the following enhancements:
 Data Release Feedback
 ---
 We are very interested in feedback on the Overture data. Please use the [Discussion](https://github.com/OvertureMaps/data/discussions) section of this repo to comment. Tagging it with the release and relevant theme name (Places, Transportation) will help direct your ideas. Please include as much detail as possible. The associated Task Force will carefully review each submission and offer feedback where required.
+
+Release Discovery
+---
+Use the [Overture STAC catalog](https://stac.overturemaps.org/catalog.json) (SpatioTemporal Asset Catalog) for authoritative release discovery.
+
+> **Deprecated:** `overture_releases.yaml`, `releases.json`, and `registry-manifest.json` (previously at `labs.overturemaps.org/data/`) are no longer maintained and will be removed in a future release. Use the STAC catalog instead.
