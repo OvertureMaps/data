@@ -55,7 +55,6 @@ jobs:
           cp 404.html publish/
           cp utils/releases.json publish/
           cp utils/latest.ddb publish/
-          cp overture_releases.yaml publish/
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
