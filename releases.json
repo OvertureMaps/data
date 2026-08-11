@@ -1,0 +1,8 @@
+{
+    "_comment": "Frozen as of 2026-07-22.0. This file is deprecated and no longer updated; use the STAC catalog at https://stac.overturemaps.org/catalog.json instead.",
+    "latest": "2026-07-22.0",
+    "releases": [
+        "2026-07-22.0",
+        "2026-06-17.0"
+    ]
+}

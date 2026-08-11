@@ -44,7 +44,7 @@ jobs:
           cd utils
           pip install -r requirements.txt
 
-      - name: Build releases.json and latest.ddb
+      - name: Build latest.ddb
         run: |
           cd utils
           python3 fetch_releases_from_stac.py
@@ -53,7 +53,7 @@ jobs:
         run: |
           mkdir publish
           cp 404.html publish/
-          cp utils/releases.json publish/
+          cp releases.json publish/
           cp utils/latest.ddb publish/
 
       - name: Setup Pages
