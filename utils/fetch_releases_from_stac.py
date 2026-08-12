@@ -77,9 +77,6 @@ def main():
     for release in output["releases"]:
         print(f" - {release}")
 
-    with open("releases.json", "w") as f:
-        f.write(json.dumps(output, indent=4))
-
     create_duckdb_views("latest.ddb", output["latest"])
 
 
