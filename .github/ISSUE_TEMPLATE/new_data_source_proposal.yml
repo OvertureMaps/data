@@ -1,0 +1,137 @@
+name: Data Source Proposal
+description: Suggest an open dataset that could improve Overture Maps data.
+title: "[Data Source Proposal]: <Dataset name>"
+labels: ["data-sources"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a data source! We review every proposal, but we can't promise to add every dataset, and adding one can take a long time. Overture is a small team, and each new source needs licensing review, schema mapping, and matching against the data we already have.
+
+        If you want your data to reach Overture sooner, these routes are often faster:
+        - **Roads, buildings, and boundaries:** contribute to [OpenStreetMap](https://www.openstreetmap.org), which Overture uses as a source for these themes.
+        - **Addresses:** contribute to [OpenAddresses](https://openaddresses.io).
+        - **Buildings and other authoritative GIS data:** contribute through Esri Community Maps.
+
+        Please provide all the information requested. Proposals missing a license or source URL are likely to stall.
+
+  - type: input
+    id: dataset-name
+    attributes:
+      label: Dataset name
+      description: A short, descriptive name.
+      placeholder: ex. Delaware County Building Footprints 2025
+    validations:
+      required: true
+
+  - type: input
+    id: source-url
+    attributes:
+      label: Source URL
+      description: Where can we access the data, or learn more about it?
+      placeholder: ex. https://www.example.gov/open-data/buildings
+    validations:
+      required: true
+
+  - type: dropdown
+    id: relationship
+    attributes:
+      label: Your relationship to this data
+      options:
+        - I publish or maintain it
+        - I work for the organization that publishes it
+        - I use it
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Overture theme
+      description: Which theme would this data improve? Choose more than one if needed. See the [schema reference](https://docs.overturemaps.org/schema/) for what each theme covers.
+      multiple: true
+      options:
+        - Addresses
+        - Base
+        - Buildings
+        - Divisions
+        - Places
+        - Transportation
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: coverage
+    attributes:
+      label: Geographic coverage
+      description: What area does the data cover?
+      placeholder: ex. Delaware County, Pennsylvania, USA
+    validations:
+      required: true
+
+  - type: textarea
+    id: dataset-description
+    attributes:
+      label: What the data would add
+      description: Describe the dataset and how it would improve Overture. For example, does it fill a coverage gap, add detail, update stale data, or add a new kind of feature?
+    validations:
+      required: true
+
+  - type: input
+    id: license
+    attributes:
+      label: License
+      description: Use the identifier from the [SPDX License List](https://spdx.org/licenses/) if you can. Enter "Other" or "Unknown" if not.
+      placeholder: ex. CC-BY-4.0, ODbL-1.0, CC0-1.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: other-license-details
+    attributes:
+      label: Other license details
+      description: If you entered "Other," paste the license text or a link to it. Include any attribution requirements or terms of use.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: in-osm
+    attributes:
+      label: Is this data already in OpenStreetMap?
+      options:
+        - "Yes"
+        - Partly
+        - "No"
+        - Not sure
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-metadata
+    attributes:
+      label: Format, updates, and other details
+      description: Anything else that would help us evaluate the data, such as file format, update frequency, how it was collected, known quality issues, or a link to documentation.
+      placeholder: |
+        Format: GeoParquet
+        Updated: Annually
+        Collection method: Derived from 2024 aerial imagery
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing proposals and didn't find this dataset.
+          required: true
+        - label: I understand that submitting a proposal doesn't guarantee Overture will add the data.
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the proposal! Our team will review it and follow up in this issue.
