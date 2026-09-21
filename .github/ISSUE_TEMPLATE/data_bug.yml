@@ -1,0 +1,134 @@
+name: Data Bug Report
+description: Report a problem with a feature in an Overture data release.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please provide all the information requested. The more precisely you can point us to the feature, the faster we can trace it to its source.
+        If the data is correct but Explorer displays or downloads it wrong, please report it in the Explorer repo instead.
+
+  - type: input
+    id: release
+    attributes:
+      label: Release
+      description: Which data release did you find this in?
+      placeholder: "YYYY-MM-DD.N"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme
+      options:
+        - addresses
+        - base
+        - buildings
+        - divisions
+        - places
+        - transportation
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: feature-type
+    attributes:
+      label: Feature type
+      description: For example, building, segment, place, division_area.
+    validations:
+      required: false
+
+  - type: input
+    id: gers-id
+    attributes:
+      label: GERS ID
+      description: The feature's `id` value. Include more than one if the bug involves several features.
+      placeholder: ex. 08f194dbad9210d503ccbefa0de75b4d
+    validations:
+      required: false
+
+  - type: textarea
+    id: location
+    attributes:
+      label: Location
+      description: An Overture Explorer URL, coordinates (lon, lat), or a bounding box. Required if you don't have a GERS ID.
+      placeholder: ex. https://explore.overturemaps.org/#16.34/51.049194/3.728993
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: What kind of problem is it?
+      multiple: true
+      options:
+        - Incorrect geometry
+        - Incorrect or missing attribute
+        - Incorrect or missing name
+        - Wrong category or classification
+        - Missing feature
+        - Duplicate feature
+        - Feature doesn't exist in the real world
+        - Broken or unexpected GERS ID behavior
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What's wrong
+      description: Describe what you see in the data. Include the relevant attribute values or a screenshot if helpful.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: What should the data say or look like?
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: How do you know? Ground truth, imagery, an official source, local knowledge, or another dataset.
+    validations:
+      required: false
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Source attribution
+      description: Paste the feature's `sources` property if you have it. This tells us which upstream dataset the problem came from.
+      render: json
+    validations:
+      required: false
+
+  - type: textarea
+    id: query
+    attributes:
+      label: How you accessed the data
+      description: The query, tool, or download method you used (DuckDB, Athena, overturemaps-py, Explorer, etc.).
+      render: sql
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and didn't find this one.
+          required: true
+        - label: I confirmed the problem is in the latest release, or I noted the release above.
+          required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the issue, our team will look into it as soon as possible!
