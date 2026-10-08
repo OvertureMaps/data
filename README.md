@@ -54,4 +54,6 @@ Release Discovery
 ---
 Use the [Overture STAC catalog](https://stac.overturemaps.org/catalog.json) (SpatioTemporal Asset Catalog) for authoritative release discovery.
 
+For upcoming release dates, see the [release calendar JSON](https://docs.overturemaps.org/release-calendar.json) ([schema](https://docs.overturemaps.org/release-calendar.schema.json)). It lists scheduled releases only; use STAC to find releases that have shipped.
+
 > **Deprecated:** `releases.json` and `registry-manifest.json` (previously at `labs.overturemaps.org/data/`) are no longer maintained. `overture_releases.yaml` has been removed and `releases.json` is now frozen at its last published contents. Use the STAC catalog instead.
