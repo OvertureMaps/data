@@ -6,7 +6,7 @@ We welcome feedback about Overture Maps data in the [Discussions](https://github
 
 - [Location](#location)
   - [Amazon S3](#amazon-s3)
-  - [Microsoft Azure](#Microsoft-azure)
+  - [Microsoft Azure](#microsoft-azure)
 - [Parquet Schema](#parquet-schema)
 - [Release Discovery](#release-discovery)
 - [Data Release Feedback](#data-release-feedback)
