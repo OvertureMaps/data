@@ -6,7 +6,7 @@ We welcome feedback about Overture Maps data in the [Discussions](https://github
 
 - [Location](#location)
   - [Amazon S3](#amazon-s3)
-  - [Microsft Azure](#microsft-azure)
+  - [Microsoft Azure](#Microsoft-azure)
 - [Parquet Schema](#parquet-schema)
 - [Release Discovery](#release-discovery)
 - [Data Release Feedback](#data-release-feedback)
@@ -30,7 +30,7 @@ s3://overturemaps-us-west-2/release/__OVERTURE_RELEASE/
   |-- theme=transportation/
 ```
 
-#### Microsft Azure
+#### Microsoft Azure
 
 ```text
 https://overturemapswestus2.blob.core.windows.net/release/__OVERTURE_RELEASE/
@@ -55,7 +55,7 @@ for each theme with the following enhancements:
 
 ### Release Discovery
 
-Use the [Overture STAC](https://stac.overturemaps.org/catalog.json) (SpatioTemporal Asset Catalog) for authoritative release data discovery and to determine the "latest"data.
+Use the [Overture STAC](https://stac.overturemaps.org/catalog.json) (SpatioTemporal Asset Catalog) for authoritative release data discovery and to determine the "latest" data.
 
 For upcoming release dates, see the [docs.overturemaps.org/release-calendar.json](https://docs.overturemaps.org/release-calendar.json) ([schema](https://docs.overturemaps.org/release-calendar.schema.json)).
 
