@@ -1,10 +1,8 @@
-name: Build and publish releases artifacts
+name: Publish redirect page
 
 on:
   push:
     branches: main
-  schedule:
-    - cron: "0 1 * * *"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -18,7 +16,7 @@ concurrency:
 
 jobs:
   deploy:
-    name: Build and Deploy
+    name: Deploy
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -33,27 +31,10 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-        with:
-          python-version: "3.12"
-          pip-version: "26.2.2"
-
-      - name: Install dependencies
-        run: |
-          cd utils
-          pip install -r requirements.txt
-
-      - name: Build latest.ddb
-        run: |
-          cd utils
-          python3 fetch_releases_from_stac.py
-
       - name: Copy output to publish directory
         run: |
           mkdir publish
           cp 404.html publish/
-          cp utils/latest.ddb publish/
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0

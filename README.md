@@ -57,6 +57,8 @@ for each theme with the following enhancements:
 
 Use the [Overture STAC](https://stac.overturemaps.org/catalog.json) (SpatioTemporal Asset Catalog) for authoritative release data discovery and to determine the "latest" data.
 
+The STAC also serves [latest.ddb](https://stac.overturemaps.org/latest.ddb), a DuckDB file with one view per feature type over the latest release. It is linked from the root `catalog.json`; run `LOAD spatial;` before querying it. This file was previously published from this repo and now lives only in the STAC.
+
 For upcoming release dates, see the [docs.overturemaps.org/release-calendar.json](https://docs.overturemaps.org/release-calendar.json) ([schema](https://docs.overturemaps.org/release-calendar.schema.json)).
 
 ### Data Release Feedback
