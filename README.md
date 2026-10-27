@@ -18,7 +18,7 @@
   <a href="https://github.com/OvertureMaps/data/discussions">Discussions</a>
 </p>
 
-A quick reference for where Overture Maps data lives, how it is laid out, and where to send feedback. For tutorials, guides, and examples, see [docs.overturemaps.org](https://docs.overturemaps.org).
+A reference for where Overture Maps data lives, how it is laid out, and where to send feedback. For tutorials, guides, and examples, see [docs.overturemaps.org](https://docs.overturemaps.org).
 
 ## Contents <!-- omit in toc -->
 
