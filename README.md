@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://overturemaps.org">
-    <img src="https://raw.githubusercontent.com/OvertureMaps/.github/main/profile/overture_maps_foundation_banner.png" alt="Overture Maps Foundation" width="600">
+    <img src="assets/overture-maps-foundation.png" alt="Overture Maps Foundation" width="450">
   </a>
 </p>
 
